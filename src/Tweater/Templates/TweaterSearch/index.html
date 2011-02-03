@@ -1,0 +1,9 @@
+{% if latest_search_list %}
+    <ul>
+    {% for SearchTerm in latest_search_list %}
+        <li><a href="/TweaterSearch/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No searches are available.</p>
+{% endif %}

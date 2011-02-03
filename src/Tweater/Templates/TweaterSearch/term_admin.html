@@ -1,0 +1,53 @@
+{% block content %}
+{% include "TweaterSearch/style.css" %}
+<html lang="en">
+<title>Term Admin</Title>
+ 
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<script src="http://code.jquery.com/jquery-1.5.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	
+	$( document ).ready( function() {
+		$( '#searchSubmit' ).click( function() {
+		q = $( '#q' ).val();		
+		$( '#results' ).load("/TweaterSearch/search/" + q);
+		$( '#TermDetail').load("/TweaterSearch/edit/" + q);
+		$( '#rawserach').load("/TweaterSearch/rawsearch/" + q);
+		});
+	});
+
+	$( document ).ajaxStart( function() {
+		$( '#spinner' ).show();
+		}).ajaxStop( function() {
+		$( '#spinner' ).hide();
+		});
+	
+	</script>
+
+</head>
+<div id="SearchResults">
+	<input id="q" type="text"/>
+	<input id="searchSubmit" type="submit" value="Search"/>
+	<br/>
+	<div class="margin">
+		<span id="spinner"><img src="{{ MEDIA_URL }}spinner.gif"/></span>
+		<div id="results">result area</div>
+	</div>
+</div>
+
+<div id="TermDetail">
+term detail goes here
+</div>
+<div id="RawSearch">
+raw search results go here
+</div>
+
+
+<div id="RefreshButton">
+toss in a refresh button to refresh results without fully reloading page
+</div>
+
+{% endblock %}
+</html>

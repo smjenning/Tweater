@@ -1,0 +1,13 @@
+from django.conf.urls.defaults import *
+#from django.views.generic import DetailView, ListView
+from TweaterSearch.views import *
+
+urlpatterns = patterns('TweaterSearch.views',
+
+    (r'^$', 'index'),
+    (r'^admin/$', 'termadmin'),
+    url(r'^search/(?P<SearchTerm_id>\d+)/$', 'search', name="search"),
+    url(r'^rawsearch/(?P<SearchTerm_id>\d+)/$', 'rawsearch', name="rawsearch"),
+    url(r'^edit/(?P<SearchTerm_id>\d+)/$', 'edit', name="edit"),
+
+)

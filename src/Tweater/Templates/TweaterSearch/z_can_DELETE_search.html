@@ -1,0 +1,33 @@
+{% block content %}
+<html lang="en">
+<title>TweaterSearch</Title>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">     
+
+ </head>
+<h2>Search Term: {{ term }}</h2>
+<ul>
+	{% for tweet in r %} 		
+			<li>			
+				<div class="twitter_user {% cycle even,odd as rowcolors %}">					
+					<div class="image">
+					<img src="{{ tweet.profile_image_url }}" alt="{{ tweet.from_user }}'s avatar">
+					</div>				
+					<dl>
+						
+						<dd><a href="http://twitter.com/{{ tweet.from_user  }}/">{{ tweet.from_user  }}</a></dd>
+						
+						<dd>{{ tweet.created_at }}</dd>
+						
+						<dd><em>{{ tweet.text }}</em></dd>
+						<div class="clearer"></div>
+					</dl>					
+					<div class="clearer"></div>
+				</div>
+			</li>
+	{% empty %}
+		<li> no search results returned </li>		
+	{% endfor %}
+</ul>
+{% endblock %}
+</html>
