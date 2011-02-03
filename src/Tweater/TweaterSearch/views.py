@@ -3,7 +3,8 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from Tweater.TweaterSearch.models import SearchTerm
+from Tweater.TweaterSearch.models import SearchTerm, Keyword, KeywordForm
+from django.forms.models import modelformset_factory
 import scoring
 import auth
 
@@ -42,3 +43,15 @@ def edit(request, SearchTerm_id):
     #so, right now passing just the term ID...
     template = 'TweaterSearch/termdetail.html'
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
+
+def keywordformsetfactory(request, SearchTerm_id):
+    KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
+    if request.method == 'POST':
+        formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
+        if formset.is_valid():
+            #do stuff here?
+            pass
+    else:
+        formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
+    template = 'TweaterSearch/keywordform.html'
+    return render_to_response(template, {'formset' : formset}, context_instance = RequestContext( request ))

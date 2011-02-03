@@ -1,10 +1,11 @@
 from django.db import models
-
+from django.forms import ModelForm
+from django.forms.models import modelformset_factory
 # Create your models here.
 # searchterm needs to be made more friendly for nulls in geo and phone fields
 class SearchTerm(models.Model):
     id              = models.AutoField(primary_key=True)
-    phrase          = models.CharField("search phrase", max_length=30)
+    phrase          = models.CharField("search phrase", max_length=30, unique=True)
     friendly_name   = models.CharField("friendly name", max_length=50, blank=True)
     pagesize        = models.IntegerField(default='10')
     lang            = models.CharField(max_length=2, default='en')
@@ -48,3 +49,16 @@ class Result(models.Model):
     SearchTermID    = models.IntegerField(default='0')
     def __unicode__(self):
         return self.statusid + '--' + self.from_user
+    
+class SearchTermForm(ModelForm):
+    class Meta:
+        model = SearchTerm
+        fields = ('phrase', 'use_geo', 'geocode_lat', 'geocode_lon')
+
+class KeywordForm(ModelForm):
+    class Meta:
+        model = Keyword
+        fields = ('phrase', 'value')
+        
+#>>> KeywordFormset(modelformset_factory(KeywordForm))
+    
