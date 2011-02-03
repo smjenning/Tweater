@@ -17,10 +17,10 @@ def search(request, SearchTerm_id):
     #need to tidy up variable names
     #should probably encapsulate the below in a separate function, call it, and return the API object
 
-    CKEY = 'txYyE7H7C0pVyaYFsxO2Zw'
-    CSEC = 'vB9JB5LPLSeaA5Dw6bkAEJ0ACSxTkyDgG2lqUfEh0'
-    key = '54029241-JhgcPE60C4qYbxLasXItdMkznEVvaGvTdTCPKBlkL'
-    secret = 'pOrN1KST5PGZgkvWmQrSGtWymAflU0BL1VLYv1ZIw'
+    CKEY = ''
+    CSEC = ''
+    key = '-'
+    secret = ''
     auth = tweepy.OAuthHandler(CKEY,CSEC)
     auth.set_access_token(key, secret)
     api = tweepy.API(auth)
@@ -36,10 +36,10 @@ def rawsearch(request, SearchTerm_id):
     #need to tidy up variable names
     #should probably encapsulate the below in a separate function, call it, and return the API object
 
-    CKEY = 'txYyE7H7C0pVyaYFsxO2Zw'
-    CSEC = 'vB9JB5LPLSeaA5Dw6bkAEJ0ACSxTkyDgG2lqUfEh0'
-    key = '54029241-JhgcPE60C4qYbxLasXItdMkznEVvaGvTdTCPKBlkL'
-    secret = 'pOrN1KST5PGZgkvWmQrSGtWymAflU0BL1VLYv1ZIw'
+    CKEY = ''
+    CSEC = ''
+    key = '-'
+    secret = ''
     auth = tweepy.OAuthHandler(CKEY,CSEC)
     auth.set_access_token(key, secret)
     api = tweepy.API(auth)
