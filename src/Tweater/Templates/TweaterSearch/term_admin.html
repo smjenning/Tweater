@@ -17,13 +17,13 @@
 		$( '#RawSearch').load("/TweaterSearch/rawsearch/" + q);
 		});
 	});
-
+/*the spinner makes it slow for some reason
 	$( document ).ajaxStart( function() {
 		$( '#spinner' ).show();
 		}).ajaxStop( function() {
 		$( '#spinner' ).hide();
 		});
-	
+*/
 	</script>
 
 </head>
@@ -32,7 +32,7 @@
 	<input id="searchSubmit" type="submit" value="Search"/>
 	<br/>
 	<div class="margin">
-		<span id="spinner"><img src="{{ MEDIA_URL }}spinner.gif"/></span>
+<!--		<span id="spinner"><img src="{{ MEDIA_URL }}spinner.gif"/></span> -->
 		<div id="results">result area</div>
 	</div>
 </div>

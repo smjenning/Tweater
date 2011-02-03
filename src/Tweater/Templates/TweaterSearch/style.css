@@ -5,6 +5,7 @@
 		}
 		body {
 			font-size: 80%;
+			background-color: #eee;
 		}
 		#wrap {
 			width: 800px;
@@ -22,16 +23,16 @@
 		#SearchResults {
 			
 			margin: 0em auto;
-			width: 350px;
+			width: 354px;
 			background: yellow;
 		}
 		#RawSearch {
 			position:absolute;
 			left: 0px;
 			top: 20px;
-			width: 350px;
+			width: 354px;
 			margin: 0em left;
-			background: blue;
+			background-color: #ccc;
 		}
 		#TermDetail {
 			position:absolute;
@@ -95,14 +96,16 @@
 		.image {
 			float: left;
 			margin-right: 2px;
+			margin-top: 5px;
 			width: 10px;
 			text-align: center;
 		}
 		.twitter_user {
 			padding: 2px;
-			margin-left: 10px;
+			margin-left: 0px;
 			border-bottom: 1px solid #f1f1f1;
-			width: 360px;
+			width: 350px;
+			height: 100px;
 		}
 		.clearer {
 			clear: both;
