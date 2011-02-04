@@ -1,17 +1,19 @@
-{% include "TweaterSearch/style.css" %}
-field/button to add new row goes here
-{% if formset|length %}
-	{% for keyword in formset %} 					
-				<div class="KeywordEdit">																		
-					<dl>dl						
-						<dd>dd</dd>						
-						<dd>dd</dd>						
-						<dd><em>dd</em></dd>
-						<div class="clearer"></div>
-					</dl>end dl					
-					<div class="clearer"></div>
-				</div>
+<html>
+	<form action='{{ request.path }}' method='post'> {% csrf_token %}
+	<!--http://127.0.0.1:8001/TweaterSearch/updatekeyword/{{ form.id.value }}/-->
+	<table>
+	{{ formset }}
+	</table>
+<!--
+	{% for form in formset %} 					
+		{{ form.id }}
+		<ul>
+			<li>phrase {{ form.phrase }}</li>
+			<li>value {{ form.value }}</li>
+			<li>delete? {{ form.DELETE }}</li>
+		</ul>
 	{% endfor %}
-{% else %}
-
-{% endif %}
+-->
+	<input type='submit' value='submit'/>
+	</form>
+</html>

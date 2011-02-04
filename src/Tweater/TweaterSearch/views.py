@@ -45,13 +45,38 @@ def edit(request, SearchTerm_id):
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
 def keywordformsetfactory(request, SearchTerm_id):
-    KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
+    #KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
+    KeywordFormset = modelformset_factory(Keyword)
+    #put some validation here..
     if request.method == 'POST':
-        formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
-        if formset.is_valid():
-            #do stuff here?
-            pass
+        #add yet more validation here. eventually.
+            formset = KeywordFormset(request.POST, request.FILES)
+            formset.save()
     else:
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
     template = 'TweaterSearch/keywordform.html'
     return render_to_response(template, {'formset' : formset}, context_instance = RequestContext( request ))
+
+def deletekeyword(request, id):
+    k = Keyword.objects.get(pk = id)
+    k.delete()
+    return HttpResponse('keyword deleted')
+
+def updatekeyword(request, id):  
+    k = Keyword.objects.get(pk = id)
+    k.phrase = request.POST.get('phrase')
+    k.value = request.POST.get('value')
+    k.save()
+    KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
+    formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=k.SearchTerm_id))
+    #return HttpResponse('keyword updated')
+    template = 'TweaterSearch/keywordform.html'
+    return render_to_response( template, {'formset' : formset}, context_instance = RequestContext( request ))
+
+def updatesearchterm(request, id):
+    k = SearchTerm.objects.get(pk = id)
+    k.phrase = request.POST.get('phrase')
+    #other fields
+    k.save()
+    return HttpResponse('searchterm updated')
+    

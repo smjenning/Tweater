@@ -53,12 +53,12 @@ class Result(models.Model):
 class SearchTermForm(ModelForm):
     class Meta:
         model = SearchTerm
-        fields = ('phrase', 'use_geo', 'geocode_lat', 'geocode_lon')
+        fields = ('id','phrase', 'use_geo', 'geocode_lat', 'geocode_lon')
 
 class KeywordForm(ModelForm):
     class Meta:
         model = Keyword
-        fields = ('phrase', 'value')
+        fields = ('id','phrase', 'value')
         
 #>>> KeywordFormset(modelformset_factory(KeywordForm))
     
