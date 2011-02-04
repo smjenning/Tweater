@@ -1,19 +1,24 @@
-<html>
-	<form action='{{ request.path }}' method='post'> {% csrf_token %}
-	<!--http://127.0.0.1:8001/TweaterSearch/updatekeyword/{{ form.id.value }}/-->
+{% block content %}
+
+	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
+	{{ formset.management_form }}
 	<table>
-	{{ formset }}
-	</table>
+	{% for form in formset %}
+	{{ form }}
 <!--
-	{% for form in formset %} 					
-		{{ form.id }}
-		<ul>
-			<li>phrase {{ form.phrase }}</li>
-			<li>value {{ form.value }}</li>
-			<li>delete? {{ form.DELETE }}</li>
-		</ul>
-	{% endfor %}
+	{{ form.id }}
+	<ul>
+		<li>phrase: {{ form.phrase }}</li>
+		<li>value: {{ form.value }}</li>
+		<li>delete? {{ form.DELETE }}</li>
+	</ul>
 -->
+	{% endfor %}
+	</table>
+
 	<input type='submit' value='submit'/>
 	</form>
-</html>
+	<p><tt id="serialz"></tt></p>
+
+
+{% endblock %}

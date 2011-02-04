@@ -46,17 +46,26 @@ def edit(request, SearchTerm_id):
 
 def keywordformsetfactory(request, SearchTerm_id):
     #KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
-    KeywordFormset = modelformset_factory(Keyword)
+    KeywordFormset = modelformset_factory(Keyword, can_delete=1)
     #put some validation here..
     if request.method == 'POST':
         #add yet more validation here. eventually.
             formset = KeywordFormset(request.POST, request.FILES)
             formset.save()
     else:
+        #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
+        ''' want to find a way to default searchterm fk for unsaved records...
+        for form in formset.save(commit=False):
+            form.SearchTermID = SearchTerm.objects.get(id=SearchTerm_id)
+            form.save()
+        formset.save()
+        '''
     template = 'TweaterSearch/keywordform.html'
-    return render_to_response(template, {'formset' : formset}, context_instance = RequestContext( request ))
+    return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
 
+'''
+I don't need these now that it's all handled by the formset factory
 def deletekeyword(request, id):
     k = Keyword.objects.get(pk = id)
     k.delete()
@@ -72,6 +81,7 @@ def updatekeyword(request, id):
     #return HttpResponse('keyword updated')
     template = 'TweaterSearch/keywordform.html'
     return render_to_response( template, {'formset' : formset}, context_instance = RequestContext( request ))
+'''
 
 def updatesearchterm(request, id):
     k = SearchTerm.objects.get(pk = id)

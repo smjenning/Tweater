@@ -1,38 +1,19 @@
 {% block content %}
-{% include "TweaterSearch/style.css" %}
+
 <html lang="en">
 <title>Term Admin</Title>
  
 <head>
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  	<script src="http://code.jquery.com/jquery-1.5.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-	
-	$( document ).ready( function() {
-		$( '#searchSubmit' ).click( function() {
-		q = $( '#q' ).val();		
-		$( '#results' ).load("/TweaterSearch/search/" + q);
-		$( '#TermDetail').load("/TweaterSearch/edit/" + q);
-		$( '#RawSearch').load("/TweaterSearch/rawsearch/" + q);
-		});
-	});
-/*the spinner makes it slow for some reason
-	$( document ).ajaxStart( function() {
-		$( '#spinner' ).show();
-		}).ajaxStop( function() {
-		$( '#spinner' ).hide();
-		});
-*/
-	</script>
-
+ <!-- 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+ 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
+	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
+{% include "TweaterSearch/style.css" %}
 </head>
 <div id="SearchResults">
 	<input id="q" type="text"/>
 	<input id="searchSubmit" type="submit" value="Search"/>
 	<br/>
 	<div class="margin">
-<!--		<span id="spinner"><img src="{{ MEDIA_URL }}spinner.gif"/></span> -->
 		<div id="results">result area</div>
 	</div>
 </div>
@@ -41,13 +22,39 @@
 term detail goes here
 </div>
 <div id="RawSearch">
-raw search results go here
+raw search results go her
 </div>
-
 
 <div id="RefreshButton">
 toss in a refresh button to refresh results without fully reloading page
 </div>
 
-{% endblock %}
+<script>	
+	$( document ).ready( function() 
+	{
+		$( '#searchSubmit' ).click( function() {
+		q = $( '#q' ).val();		
+		$( '#results' ).load("/TweaterSearch/search/" + q);
+		$( '#TermDetail' ).load("/TweaterSearch/edit/" + q);
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + q);	 
+		});
+		$( '#theform#' ).live('click', function() { 
+			showValues();
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")
+			
+			$('#theform').ajaxForm(function() { 
+            alert("Thank you for your comment!"); 
+            $( '#TermDetail' ).load("/TweaterSearch/edit/" + q);
+			});   
+		});	
+			
+	});
+	
+		function showValues(){
+			var str = $( '#theform' ).serialize();
+			$("#serialz").text(str);
+		}
+
+	</script>
 </html>
+{% endblock %}
