@@ -30,9 +30,9 @@ def rawsearch(request, SearchTerm_id):
     template = 'TweaterSearch/results.html'
     return render_to_response( template , {'results': recent, 'term': term.phrase}, context_instance = RequestContext( request ))       
 
-def termadmin(request):
+def termadmin(request, SearchTerm_id):
     template = 'TweaterSearch/term_admin.html'
-    data = {}
+    data = {'id' : SearchTerm_id }
     #return render_to_response('TweaterSearch/term_admin.html', {'result': r.values(), 'phrase': term.phrase})
     return render_to_response( template , data, context_instance = RequestContext( request ))
 

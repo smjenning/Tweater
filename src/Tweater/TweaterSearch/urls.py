@@ -5,7 +5,7 @@ from TweaterSearch.views import *
 urlpatterns = patterns('TweaterSearch.views',
 
     (r'^$', 'index'),
-    (r'^admin/$', 'termadmin'),
+    (r'^admin/(?P<SearchTerm_id>\d+)/$', 'termadmin'),
     url(r'^search/(?P<SearchTerm_id>\d+)/$', 'search', name="search"),
     url(r'^rawsearch/(?P<SearchTerm_id>\d+)/$', 'rawsearch', name="rawsearch"),
     url(r'^edit/(?P<SearchTerm_id>\d+)/$', 'edit', name="edit"),

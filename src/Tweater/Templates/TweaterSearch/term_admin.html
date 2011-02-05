@@ -9,14 +9,14 @@
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
 {% include "TweaterSearch/style.css" %}
 </head>
+
 <div id="SearchResults">
-	<input id="q" type="text"/>
-	<input id="searchSubmit" type="submit" value="Search"/>
-	<br/>
+
 	<div class="margin">
 		<div id="results">result area</div>
 	</div>
 </div>
+
 
 <div id="TermDetail">
 term detail goes here
@@ -32,19 +32,19 @@ toss in a refresh button to refresh results without fully reloading page
 <script>	
 	$( document ).ready( function() 
 	{
-		$( '#searchSubmit' ).click( function() {
-		q = $( '#q' ).val();		
-		$( '#results' ).load("/TweaterSearch/search/" + q);
-		$( '#TermDetail' ).load("/TweaterSearch/edit/" + q);
-		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + q);	 
-		});
+		
+		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
+		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 
+		
+
 		$( '#theform#' ).live('click', function() { 
 			showValues();
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")
 			
 			$('#theform').ajaxForm(function() { 
             alert("Thank you for your comment!"); 
-            $( '#TermDetail' ).load("/TweaterSearch/edit/" + q);
+            $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
 			});   
 		});	
 			
