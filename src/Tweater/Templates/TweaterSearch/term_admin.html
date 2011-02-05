@@ -16,9 +16,12 @@
 	</div>
 </div>
 
-
-<div id="TermDetail">
-
+<div id="tabs">
+	<ul>
+		<li><a href="#SearchTerm" id="termtab">Term</a> || <a href="#TermDetail" id="keywordtab">Keywords</a></li>
+	</ul>
+	<div id="TermDetail"></div>
+<!--	<div id="SearchTerm"></div> -->
 </div>
 
 <div id="TwitterSearch">
@@ -35,6 +38,8 @@
 </div>
 
 <script>	
+
+	
 	$( document ).ready( function() 
 	{
 		
@@ -44,11 +49,21 @@
 
 		$( '#theform#' ).live('click', function() { 
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
+			//for keywords
 			$('#theform').ajaxForm(function() { 
+            alert("changes submitted"); 
+            $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+			});  
+		});
+		$( '#termform#' ).live('click', function() { 
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
+			//for the term
+			$('#termform').ajaxForm(function() { 
             alert("changes submitted"); 
             $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
 			});   
 		});
+		
 						
 		$( '#searchSubmit' ).click( function() {	
 			//this needs to actually read the term in the search box
@@ -64,6 +79,30 @@
 				$('#results').show('slow');
 				});
 		});
+		
+		$(function() {
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor){
+						$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo.");
+					}
+				}
+			});	
+		});
+		$("#termtab").click(function(){ 
+			$( '#TermDetail' ).hide();
+			$( '#TermDetail' ).load("/TweaterSearch/termform/" + {{ id }}, function(){
+				$( '#TermDetail' ).show('fast');
+				}); 
+			});
+		$("#keywordtab").click(function(){ 
+			$( '#TermDetail' ).hide();
+			$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }}, function(){
+				$( '#TermDetail' ).show('fast');
+				}); 
+			});
+		
 	});
 	
 		function showValues(){

@@ -13,5 +13,6 @@ urlpatterns = patterns('TweaterSearch.views',
     #url(r'^deletekeyword/(?P<id>\d+)/$', 'deletekeyword', name="deletekeyword"),
     #url(r'^updatekeyword/(?P<id>\d+)/$', 'updatekeyword', name="updatekeyword"),
     url(r'^updatesearchterm/(?P<id>\d+)/$', 'updatesearchterm', name="updatesearchterm"),
+    url(r'^termform/(?P<SearchTerm_id>\d+)/$', 'termform', name="termform"),
 
 )

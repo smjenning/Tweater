@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from Tweater.TweaterSearch.models import SearchTerm, Keyword, KeywordForm
+from Tweater.TweaterSearch.models import SearchTerm, Keyword, KeywordForm, SearchTermForm
 from django.forms.models import modelformset_factory
 import scoring
 import auth
@@ -35,6 +35,22 @@ def termadmin(request, SearchTerm_id):
     data = {'id' : SearchTerm_id }
     #return render_to_response('TweaterSearch/term_admin.html', {'result': r.values(), 'phrase': term.phrase})
     return render_to_response( template , data, context_instance = RequestContext( request ))
+
+def termform(request, SearchTerm_id):
+    template = 'TweaterSearch/termform.html'
+    t = SearchTerm.objects.get(pk=SearchTerm_id)   
+    if request.method == 'POST':
+        #add yet more validation here. eventually.
+        f = SearchTermForm(request.POST, instance=t)
+        if f.is_valid():
+            f.save()
+    else:
+        #if the request is not a post, i.e. you are just retrieving the existing list
+        f = SearchTermForm(instance=t)
+    data = { 'form': f, 'id' : SearchTerm_id }
+    #return render_to_response('TweaterSearch/term_admin.html', {'result': r.values(), 'phrase': term.phrase})
+    return render_to_response( template , data, context_instance = RequestContext( request ))
+
 
 def edit(request, SearchTerm_id):
     #idea is to render current list of keywords/weights

@@ -50,6 +50,14 @@
 			margin: 0em left;
 			background-color: #ccc;
 		}
+		#tabs {
+			position:absolute;
+			right: 0px;
+			top: 20px;
+			width: 300px;
+			margin: 0em right;
+			background: green;
+		}
 		#TermDetail {
 			position:absolute;
 			right: 0px;

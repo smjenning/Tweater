@@ -1,0 +1,14 @@
+{% block content %}
+
+	<form id='termform' action='/TweaterSearch/termform/{{ id }}/' method='post'> {% csrf_token %}
+	
+	<input type='submit' value='submit'/>
+	<table>
+	{{ form }}
+	<input type="hidden" name="id" value="{{ id }}" id="id_id" />
+	</table>
+	</form>
+	<p><tt id="serialz"></tt></p>
+
+
+{% endblock %}
