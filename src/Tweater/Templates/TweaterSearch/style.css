@@ -21,8 +21,16 @@
 			padding: 10px;
 		}
 		#SearchResults {
-			
-			margin: 0em auto;
+			position: absolute;
+			left: 400px;
+			top: 20px;
+			width: 354px;
+			background: yellow;
+		}
+		#refreshTweater {
+			position: absolute;
+			left: 400px;
+			top: 0px;
 			width: 354px;
 			background: yellow;
 		}
@@ -30,6 +38,14 @@
 			position:absolute;
 			left: 0px;
 			top: 20px;
+			width: 354px;
+			margin: 0em left;
+			background-color: #ccc;
+		}
+		#TwitterSearch {
+			position:absolute;
+			left: 0px;
+			top: 0px;
 			width: 354px;
 			margin: 0em left;
 			background-color: #ccc;

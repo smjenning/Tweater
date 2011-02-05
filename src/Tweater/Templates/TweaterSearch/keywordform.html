@@ -2,6 +2,7 @@
 
 	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
+	<input type='submit' value='submit'/>
 	<table>
 	{% for form in formset %}
 	{{ form }}
@@ -15,8 +16,6 @@
 -->
 	{% endfor %}
 	</table>
-
-	<input type='submit' value='submit'/>
 	</form>
 	<p><tt id="serialz"></tt></p>
 

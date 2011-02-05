@@ -11,7 +11,6 @@
 </head>
 
 <div id="SearchResults">
-
 	<div class="margin">
 		<div id="results">result area</div>
 	</div>
@@ -19,14 +18,20 @@
 
 
 <div id="TermDetail">
-term detail goes here
+
 </div>
+
+<div id="TwitterSearch">
+	<input id="q" type="text"/>
+	<input id="searchSubmit" type="submit" value="Search"/>
+</div>
+
 <div id="RawSearch">
-raw search results go her
+
 </div>
 
 <div id="RefreshButton">
-toss in a refresh button to refresh results without fully reloading page
+	<input id="refreshTweater" type="submit" value="Refresh"/>
 </div>
 
 <script>	
@@ -35,19 +40,30 @@ toss in a refresh button to refresh results without fully reloading page
 		
 		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
 		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
-		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 
-		
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
 
 		$( '#theform#' ).live('click', function() { 
-			showValues();
-			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")
-			
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
 			$('#theform').ajaxForm(function() { 
-            alert("Thank you for your comment!"); 
+            alert("changes submitted"); 
             $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
 			});   
-		});	
-			
+		});
+						
+		$( '#searchSubmit' ).click( function() {	
+			//this needs to actually read the term in the search box
+			$( '#RawSearch' ).hide();
+			$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }}, function(){
+				$('#RawSearch').show('slow'); 
+				});	
+		});
+		$( '#refreshTweater' ).click( function() {	
+			//this needs to actually read the term in the search box
+			$( '#results' ).hide();
+			$( '#results' ).load("/TweaterSearch/search/" + {{ id }}, function(){
+				$('#results').show('slow');
+				});
+		});
 	});
 	
 		function showValues(){
