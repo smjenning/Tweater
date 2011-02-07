@@ -7,6 +7,11 @@
  <!-- 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
  	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script> 
+	
 {% include "TweaterSearch/style.css" %}
 </head>
 
@@ -25,8 +30,11 @@
 </div>
 
 <div id="TwitterSearch">
-	<input id="q" type="text"/>
-	<input id="searchSubmit" type="submit" value="Search"/>
+	<form id='twsearch' action='' method=''> 
+		{% csrf_token %}
+		<input id="q" type="text" name="q"/>
+		<input id="searchSubmit" type="submit" value="Search"/>
+	</form>
 </div>
 
 <div id="RawSearch">
@@ -45,7 +53,7 @@
 		
 		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
 		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
-		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
+		//$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
 
 		$( '#theform#' ).live('click', function() { 
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
@@ -60,18 +68,36 @@
 			//for the term
 			$('#termform').ajaxForm(function() { 
             alert("changes submitted"); 
-            $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+            //$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
 			});   
 		});
-		
-						
+
+/*--back up
 		$( '#searchSubmit' ).click( function() {	
 			//this needs to actually read the term in the search box
+			q = $( '#q' ).val();
 			$( '#RawSearch' ).hide();
-			$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }}, function(){
+			$( '#RawSearch' ).load("/TweaterSearch/rawsearch/0/" + q, function(){
 				$('#RawSearch').show('slow'); 
-				});	
+			});	
 		});
+--*/		
+					
+		$( '#twsearch' ).live('click', function() {	
+			//this needs to actually read the term in the search box
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")	
+			$( '#RawSearch' ).hide();
+			$('#twsearch').ajaxForm(function() {
+				
+				//$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), $( '#RawSearch' ).show(),  "xml" );
+				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
+					$('#RawSearch').html(data);
+					$( '#RawSearch' ).show() 
+					});
+				//$( '#RawSearch' ).load("/TweaterSearch/rawsearch/1/");
+			});
+		});
+		
 		$( '#refreshTweater' ).click( function() {	
 			//this needs to actually read the term in the search box
 			$( '#results' ).hide();
@@ -90,18 +116,20 @@
 				}
 			});	
 		});
+		
 		$("#termtab").click(function(){ 
 			$( '#TermDetail' ).hide();
 			$( '#TermDetail' ).load("/TweaterSearch/termform/" + {{ id }}, function(){
 				$( '#TermDetail' ).show('fast');
 				}); 
-			});
+		});
+			
 		$("#keywordtab").click(function(){ 
 			$( '#TermDetail' ).hide();
 			$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }}, function(){
 				$( '#TermDetail' ).show('fast');
 				}); 
-			});
+		});
 		
 	});
 	

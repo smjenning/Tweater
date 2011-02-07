@@ -24,11 +24,19 @@ def search(request, SearchTerm_id):
 
 def rawsearch(request, SearchTerm_id):
     api = auth.GetTweepyAPI()
-    term = SearchTerm.objects.get(id=SearchTerm_id)
-    recent = api.search(q=term.phrase,lang=term.lang)
+    if request.method == 'POST':
+        #if SearchTerm_id == 0:
+        recent = api.search(q=request.POST["q"],lang="en")
+        #recent = api.search(q=request.POST['q'],lang="en")
+        #else:
+        #    term = SearchTerm.objects.get(id=SearchTerm_id)
+        #    recent = api.search(q=term.phrase,lang=term.lang)
+    else:
+        term = SearchTerm.objects.get(id=SearchTerm_id)
+        recent = api.search(q=term.phrase,lang=term.lang)
     #leave at default number of results, or perhaps more vs. page limit for variety  
     template = 'TweaterSearch/results.html'
-    return render_to_response( template , {'results': recent, 'term': term.phrase}, context_instance = RequestContext( request ))       
+    return render_to_response( template , {'results': recent }, context_instance = RequestContext( request ))       
 
 def termadmin(request, SearchTerm_id):
     template = 'TweaterSearch/term_admin.html'
@@ -79,30 +87,3 @@ def keywordformsetfactory(request, SearchTerm_id):
         '''
     template = 'TweaterSearch/keywordform.html'
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
-
-'''
-I don't need these now that it's all handled by the formset factory
-def deletekeyword(request, id):
-    k = Keyword.objects.get(pk = id)
-    k.delete()
-    return HttpResponse('keyword deleted')
-
-def updatekeyword(request, id):  
-    k = Keyword.objects.get(pk = id)
-    k.phrase = request.POST.get('phrase')
-    k.value = request.POST.get('value')
-    k.save()
-    KeywordFormset = modelformset_factory(Keyword,KeywordForm,can_delete=True)
-    formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=k.SearchTerm_id))
-    #return HttpResponse('keyword updated')
-    template = 'TweaterSearch/keywordform.html'
-    return render_to_response( template, {'formset' : formset}, context_instance = RequestContext( request ))
-'''
-
-def updatesearchterm(request, id):
-    k = SearchTerm.objects.get(pk = id)
-    k.phrase = request.POST.get('phrase')
-    #other fields
-    k.save()
-    return HttpResponse('searchterm updated')
-    
