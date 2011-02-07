@@ -41,7 +41,7 @@ def score(object, SearchTerm_id):
     sql = """CREATE TABLE IF NOT EXISTS t_scoring (
             statusid char(128),
             score INT DEFAULT 0,
-            text CHAR(150),
+            text CHAR(200),
             geo_lat FLOAT,
             geo_lon FLOAT,
             user_name CHAR(50),
@@ -58,7 +58,7 @@ def score(object, SearchTerm_id):
               INSERT INTO t_scoring (statusid, score, text, geo_lat, geo_lon, user_name, image_url, status_date, SearchTermID) 
               VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         try:
-            cursor.execute (sql, [str(x.id), 50, unicode(x.text), 0, 0, x.from_user, x.profile_image_url, x.created_at, SearchTerm_id])
+            cursor.execute (sql, [str(x.id), 50, x.text.encode('utf-8','ingore'), 0, 0, x.from_user, x.profile_image_url, x.created_at, SearchTerm_id])
         except MySQLdb.Error, e:
             print "Error %d: %s" % (e.args[0], e.args[1])
         db.commit()
