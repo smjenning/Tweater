@@ -20,9 +20,12 @@ def search(request, SearchTerm_id):
     recent = api.search(q=term.phrase,lang=term.lang)
     i = 2
     while len(recent) < term.pagesize:
+        #this is wrong in several ways.  Actually, only two ways
+        #1: if the number of tweets cached by twitter is less than pagesize, catch and escape that
+        #2: once I have enough tweets, chop off the extra ones (currently adds a full page at a time)
         recent.extend(api.search(q=term.phrase,lang=term.lang,page=i))
         i += 1
-    #need to get more results until page_size limit is reached
+        
     r = scoring.score(recent, SearchTerm_id)
     template = 'TweaterSearch/results.html'
     return render_to_response( template , {'results': r.values(), 'term': term.phrase}, context_instance = RequestContext( request ))
