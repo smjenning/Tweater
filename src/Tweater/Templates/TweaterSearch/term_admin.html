@@ -4,7 +4,7 @@
 <title>Term Admin</Title>
  
 <head>
- <!-- 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script> 
@@ -26,7 +26,6 @@
 		<li><a href="#SearchTerm" id="termtab">Term</a> || <a href="#TermDetail" id="keywordtab">Keywords</a></li>
 	</ul>
 	<div id="TermDetail"></div>
-<!--	<div id="SearchTerm"></div> -->
 </div>
 
 <div id="TwitterSearch">
@@ -46,14 +45,13 @@
 </div>
 
 <script>	
-
 	
 	$( document ).ready( function() 
 	{
 		
 		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
 		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
-		//$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
 
 		$( '#theform#' ).live('click', function() { 
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
@@ -67,39 +65,24 @@
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
 			//for the term
 			$('#termform').ajaxForm(function() { 
-            alert("changes submitted"); 
-            //$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+           		alert("changes submitted"); 
+            	$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }} + "#SearchTerm");
 			});   
 		});
-
-/*--back up
-		$( '#searchSubmit' ).click( function() {	
-			//this needs to actually read the term in the search box
-			q = $( '#q' ).val();
-			$( '#RawSearch' ).hide();
-			$( '#RawSearch' ).load("/TweaterSearch/rawsearch/0/" + q, function(){
-				$('#RawSearch').show('slow'); 
-			});	
-		});
---*/		
-					
+			
 		$( '#twsearch' ).live('click', function() {	
-			//this needs to actually read the term in the search box
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")	
-			$( '#RawSearch' ).hide();
+			//on submit, hide current results, ajax post the search form, then render results to rawsearch div
 			$('#twsearch').ajaxForm(function() {
-				
-				//$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), $( '#RawSearch' ).show(),  "xml" );
+				$( '#RawSearch' ).hide();
 				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
 					$('#RawSearch').html(data);
 					$( '#RawSearch' ).show() 
 					});
-				//$( '#RawSearch' ).load("/TweaterSearch/rawsearch/1/");
 			});
 		});
 		
 		$( '#refreshTweater' ).click( function() {	
-			//this needs to actually read the term in the search box
 			$( '#results' ).hide();
 			$( '#results' ).load("/TweaterSearch/search/" + {{ id }}, function(){
 				$('#results').show('slow');
