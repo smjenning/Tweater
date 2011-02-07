@@ -1,9 +1,10 @@
+{% autoescape off %}
 
 {% if results|length %}
 	{% for tweet in results %} 					
 				<div class="twitter_user {% cycle even,odd as rowcolors %}">					
 					<div class="image">
-					<img src="{{ tweet.profile_image_url }}" alt="{{ tweet.from_user }}'s avatar">
+					<img src="{{ tweet.profile_image_url }}" width="50" height="50" alt="{{ tweet.from_user }}'s avatar">
 					</div>				
 					<dl>
 						
@@ -22,3 +23,4 @@
 	Your search yielded no results
 	</div>
 {% endif %}
+{% endautoescape %}

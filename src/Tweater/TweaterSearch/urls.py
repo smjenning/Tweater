@@ -11,5 +11,6 @@ urlpatterns = patterns('TweaterSearch.views',
     url(r'^edit/(?P<SearchTerm_id>\d+)/$', 'edit', name="edit"),
     url(r'^keywords/(?P<SearchTerm_id>\d+)/$', 'keywordformsetfactory', name="keywordformsetfactory"),
     url(r'^termform/(?P<SearchTerm_id>\d+)/$', 'termform', name="termform"),
+    url(r'^term/(?P<SearchTerm_id>\d+)/$', 'neworedit', name="neworedit"),
 
 )

@@ -54,6 +54,10 @@ class SearchTermForm(ModelForm):
     class Meta:
         model = SearchTerm
         fields = ('id','phrase', 'use_geo', 'geocode_lat', 'geocode_lon')
+        
+class SearchTermFormAll(ModelForm):
+    class Meta:
+        model = SearchTerm
 
 class KeywordForm(ModelForm):
     class Meta:
