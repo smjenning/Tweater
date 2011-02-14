@@ -5,7 +5,7 @@ from django.forms.models import modelformset_factory
 # searchterm needs to be made more friendly for nulls in geo and phone fields
 class SearchTerm(models.Model):
     id              = models.AutoField(primary_key=True)
-    phrase          = models.CharField("search phrase", max_length=30)
+    phrase          = models.CharField("search phrase", max_length=30, unique=True)
     friendly_name   = models.CharField("friendly name", max_length=50, blank=True)
     pagesize        = models.IntegerField(default='10')
     lang            = models.CharField(max_length=2, default='en')
