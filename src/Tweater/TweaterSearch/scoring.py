@@ -72,7 +72,7 @@ def score(object, SearchTerm_id):
     db.commit()
     # retrieve data from temp table into object
     # assume re-ranking already done in SQL, so just need to take top 10 rows
-    sql = """SELECT * from t_scoring ORDER BY score desc LIMIT 0,10"""
+    sql = """SELECT * from t_scoring ORDER BY score desc, status_date desc LIMIT 0,10"""
     try:
         cursor.execute(sql)
     except MySQLdb.Error, e:
