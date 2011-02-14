@@ -57,11 +57,11 @@ def termform(request, SearchTerm_id):
     template = 'TweaterSearch/termform.html'  
     if request.method == 'POST':
         if SearchTerm_id == '0':
-            f = SearchTermForm(request.POST)
+            f = SearchTermFormAll(request.POST)
         #add yet more validation here. eventually.
         else: 
             t = SearchTerm.objects.get(pk=SearchTerm_id)
-            f = SearchTermForm(request.POST, instance=t)
+            f = SearchTermFormAll(request.POST, instance=t)
         if f.is_valid():
             f.save()
     else:
