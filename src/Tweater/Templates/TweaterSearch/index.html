@@ -25,7 +25,10 @@
 {% if latest_search_list %}
     <ul>
     {% for SearchTerm in latest_search_list %}
-        <li><a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a></li>
+        <li><a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
+		|| <a href="/TweaterSearch/term/{{ SearchTerm.id }}/">edit</a>
+		<!-- replace edit text with icon -->
+		</li>
     {% endfor %}
     </ul>
 {% else %}
