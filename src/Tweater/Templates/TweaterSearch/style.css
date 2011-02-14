@@ -66,6 +66,14 @@
 			margin: 0em right;
 			background: green;
 		}
+		#navigation {
+			position:absolute;
+			right: 200px;
+			top: 20px;
+			width: 300px;
+			margin: 0em right;
+			background: #a23;
+		}
 		#spinner {
  			 display: none;
   			position: relative;
