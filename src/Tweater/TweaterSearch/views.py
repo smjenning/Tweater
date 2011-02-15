@@ -67,7 +67,7 @@ def termform(request, SearchTerm_id):
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         t = SearchTerm.objects.get(pk=SearchTerm_id)
-        f = SearchTermForm(instance=t)
+        f = SearchTermFormAll(instance=t)
     data = { 'form': f, 'id' : SearchTerm_id }
     return render_to_response( template , data, context_instance = RequestContext( request ))
 
