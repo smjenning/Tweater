@@ -32,8 +32,10 @@
 	        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
 	        var id = 'id_' + name;
 	        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-			if (name = "SearchTermID")
+			
+			if (name.indexOf("SearchTermID") > 1)
 			{
+				alert(name);
 				$(this).attr({'value': {{ SearchTermID }} });
 			}
 	    });
