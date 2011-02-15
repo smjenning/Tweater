@@ -78,7 +78,7 @@ def edit(request, SearchTerm_id):
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
 def keywordformsetfactory(request, SearchTerm_id):
-    KeywordFormset = modelformset_factory(Keyword, can_delete=1)
+    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
     #put some validation here..
     if request.method == 'POST':
         #add yet more validation here. eventually.
@@ -93,6 +93,8 @@ def keywordformsetfactory(request, SearchTerm_id):
             form.save()
         formset.save()
         '''
+        for form in formset:
+            form.SearchTermID = SearchTerm_id
     template = 'TweaterSearch/keywordform.html'
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
 

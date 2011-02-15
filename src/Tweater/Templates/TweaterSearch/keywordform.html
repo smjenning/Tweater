@@ -1,23 +1,49 @@
 {% block content %}
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
+	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
 
 	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
 	<input type='submit' value='submit'/>
-	<table>
+
 	{% for form in formset %}
-	{{ form }}
-<!--
-	{{ form.id }}
-	<ul>
-		<li>phrase: {{ form.phrase }}</li>
-		<li>value: {{ form.value }}</li>
-		<li>delete? {{ form.DELETE }}</li>
-	</ul>
--->
+	<div class='table'>
+    <table class='no_error'>
+        {{ form.as_table }}
+    </table>
+	</div>
 	{% endfor %}
-	</table>
 	</form>
-	<p><tt id="serialz"></tt></p>
+	<input type="button" value="Add More" id="add_more">
+<script>
+    $('#add_more').click(function() {
+        cloneMore('div.table:last', 'form');
+    });
+</script>
 
 
 {% endblock %}
+
+<script>
+	function cloneMore(selector, type) {
+    	var newElement = $(selector).clone(true);
+    	var total = $('#id_' + type + '-TOTAL_FORMS').val();
+	    newElement.find(':input').each(function() {
+	        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+	        var id = 'id_' + name;
+	        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+			if (name = "SearchTermID")
+			{
+				$(this).attr({'value': {{ SearchTermID }} });
+			}
+	    });
+	    newElement.find('label').each(function() {
+	        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+	        $(this).attr('for', newFor);
+	    });
+	    total++;
+	    $('#id_' + type + '-TOTAL_FORMS').val(total);
+	    $(selector).after(newElement);
+	}
+	
+</script>

@@ -8,34 +8,56 @@
 	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script> 
  
 	
-{% include "TweaterSearch/style.css" %}
+<!-- {% include "TweaterSearch/style.css" %}-->
 	<link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
 	<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">
 </head>
-<div id="about">
-<p>TweaterSearch is a project to re-rank search results in order to achieve a more directed search.</p>  
-<p>TweaterSearch (name subject to change) will use key phrases, social check-ins, geocodes, and other criteria to determine which tweets are more "interesting" than others.</p>
-<P>This project was built by Samuel Jenning using, among other things, Django, the Tweepy API, Python registration, MySQL, and jQuery.  Sam doesn't want any criticism, so email praise only to sam jenning at gmail</P>
-</div>
 
-<div id="list">
-	<h3>Search Terms</h3>
-	<a href="/TweaterSearch/term/0">Create a new term</a>
-	<br><br>
-	<b>Available Search Terms:</b>
-{% if latest_search_list %}
-    <ul>
-    {% for SearchTerm in latest_search_list %}
-        <li><a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
-		|| <a href="/TweaterSearch/term/{{ SearchTerm.id }}/">edit</a>
-		<!-- replace edit text with icon -->
-		</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No searches are available.</p>
-{% endif %}
-</div>
+<div class="container">
+	<div class="span-24 last">
+		Header and big, fun image
+	</div>
+	<div class="span-8">
+		<h3>About</h3>
+		<div id="about">
+			<p>TweaterSearch is a project to re-rank search results in order to achieve a more directed search.</p>  
+			<p>TweaterSearch (name subject to change) will use key phrases, social check-ins, geocodes, and other criteria to determine which tweets are more "interesting" than others.</p>
+			<P>This project was built by Samuel Jenning using, among other things, Django, the Tweepy API, Python registration, MySQL, and jQuery.  Sam doesn't want any criticism, so email praise only to sam jenning at gmail</P>
+		</div>
+	</div>
+	
+	<div class="span-8">
+		<div id="list">
+			<h3>Search Terms</h3>
+			<a href="/TweaterSearch/term/0"><img src="/site_media/Add-icon.png"/> &nbsp; Create a new term</a>
+			
+			<br><br>
+			<b>Available Search Terms:</b>
+		{% if latest_search_list %}
+		    <ul>
+		    {% for SearchTerm in latest_search_list %}
+		        <p><a href="/TweaterSearch/term/{{ SearchTerm.id }}/"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
+				<a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
+				</p>
+				
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No searches are available.</p>
+		{% endif %}
+		</div>
+	</div>
+	
+	
+	<div class="span-8 last">
+		<h3>Instructions</h3>
+	</div>	
+</div>  <!-- end container div -->
+
+
+
+
+
 
 
 
