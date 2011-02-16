@@ -71,17 +71,18 @@ def edit(request, SearchTerm_id):
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
 def keywordformsetfactory(request, SearchTerm_id):
-    if count(keywords for this searchterm) == 0:
-        n = 1
-    else:
-        n = 0
+
     
-    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=n, max_num = None)
+    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
     #put some validation here..
     if request.method == 'POST':
         #add yet more validation here. eventually.
             formset = KeywordFormset(request.POST, request.FILES)        
-            formset.save()
+            if not formset.is_valid():
+                print formset.errors
+                pass
+            else:
+                formset.save()
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
@@ -104,8 +105,12 @@ def neworedit(request, SearchTerm_id):
 
 def delkw(request, kid, SearchTerm_id):
     #render current list of keywords/weights
-    k = Keyword.objects.get(id=kid)
-    k.delete()
+    if Keyword.objects.filter(SearchTermID=SearchTerm_id).count() > 1:
+        k = Keyword.objects.get(id=kid)
+        k.delete()
+    else:
+        #print "SearchTerm must have at least one Keyword"
+        raise Exception("SearchTerm must have at least one Keyword")
     template = 'TweaterSearch/keywordform.html'
     KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
     formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))

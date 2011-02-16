@@ -33,15 +33,17 @@
 			
 			<br><br>
 			<b>Available Search Terms:</b>
+			<br>
 		{% if latest_search_list %}
-		    <ul>
+		    
 		    {% for SearchTerm in latest_search_list %}
 		        <p><a href="/TweaterSearch/term/{{ SearchTerm.id }}/"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
 				<a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
 				</p>
 				
+				
 		    {% endfor %}
-		    </ul>
+		    
 		{% else %}
 		    <p>No searches are available.</p>
 		{% endif %}
