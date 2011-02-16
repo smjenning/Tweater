@@ -9,8 +9,8 @@ class SearchTerm(models.Model):
     friendly_name   = models.CharField("friendly name", max_length=50, blank=True)
     pagesize        = models.IntegerField(default='10')
     lang            = models.CharField(max_length=2, default='en')
-    geocode_lat     = models.FloatField(null=True)
-    geocode_lon     = models.FloatField(null=True)
+    geocode_lat     = models.FloatField(null=True, default='0')
+    geocode_lon     = models.FloatField(null=True, default='0')
     use_geo         = models.BooleanField(default=False)
     geo_value       = models.IntegerField(default='5')
     geo_dist        = models.IntegerField(default='1') #radius distance in km
@@ -24,8 +24,8 @@ class SearchTerm(models.Model):
     address_state   = models.CharField(max_length=50, blank=True)
     address_country = models.CharField(max_length=50, blank=True)
     address_zip     = models.CharField(max_length=50, blank=True)
-    website         = models.URLField(blank=True)
-    phone           = models.CharField(max_length=20)
+    website         = models.URLField(blank=True, default='0')
+    phone           = models.CharField(max_length=20,default='0')
     def __unicode__(self):
         return self.phrase
     def save(self, *args, **kwargs):
@@ -45,7 +45,7 @@ class Keyword(models.Model):
     phrase          = models.CharField("keyword", max_length=20)
     value           = models.IntegerField(default='10')
     def __unicode__(self):
-        return self.phrase + '--' + self.SearchTermID.get_attname()
+        return self.phrase + '--'# + self.SearchTermID.get_attname()
 
 class Result(models.Model):
     statusid        = models.IntegerField(default='0')

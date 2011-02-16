@@ -33,16 +33,10 @@ def search(request, SearchTerm_id):
 def rawsearch(request, SearchTerm_id):
     api = auth.GetTweepyAPI()
     if request.method == 'POST':
-        #if SearchTerm_id == 0:
         recent = api.search(q=request.POST["q"],lang="en")
-        #recent = api.search(q=request.POST['q'],lang="en")
-        #else:
-        #    term = SearchTerm.objects.get(id=SearchTerm_id)
-        #    recent = api.search(q=term.phrase,lang=term.lang)
     else:
         term = SearchTerm.objects.get(id=SearchTerm_id)
-        recent = api.search(q=term.phrase,lang=term.lang)
-        
+        recent = api.search(q=term.phrase,lang=term.lang)       
     #leave at default number of results, or perhaps more vs. page limit for variety  
     template = 'TweaterSearch/results.html'
     return render_to_response( template , {'results': recent }, context_instance = RequestContext( request ))       
@@ -50,7 +44,6 @@ def rawsearch(request, SearchTerm_id):
 def termadmin(request, SearchTerm_id):
     template = 'TweaterSearch/term_admin.html'
     data = {'id' : SearchTerm_id }
-    #return render_to_response('TweaterSearch/term_admin.html', {'result': r.values(), 'phrase': term.phrase})
     return render_to_response( template , data, context_instance = RequestContext( request ))
 
 def termform(request, SearchTerm_id):
@@ -83,7 +76,22 @@ def keywordformsetfactory(request, SearchTerm_id):
     if request.method == 'POST':
         #add yet more validation here. eventually.
             formset = KeywordFormset(request.POST, request.FILES)
-            formset.save()
+            '''
+            for form in formset:
+                #print form.initial
+                print form.fields["phrase"].__dict__
+                if form.fields["phrase"] == "":
+                    
+                    form.fields["phrase"] = "temp"
+                    form.fields["DELETE"] = True
+                    form.fields["score"] = 0
+                    if not form.is_valid():
+                        print form.errors
+                    else:
+                        form.save()
+                        print "saved"
+            '''               
+            pass#formset.save()
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))

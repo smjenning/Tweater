@@ -1,16 +1,15 @@
 {% block content %}
-
+	<a href="/TweaterSearch/">go to index</a>
 	<form id='termform' action='/TweaterSearch/termform/{{ id }}/' method='post'> {% csrf_token %}
 
 	<input type='submit' value='submit'/>
 	<table>
-	{{ form }}
-	
+	{{ form }}	
 	</table>
 	</form>
-	<p><tt id="serialz"></tt></p>
+
 
 
 {% endblock %}
 
-	<a href="/TweaterSearch/">go to index</a>
+	

@@ -2,29 +2,45 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
 
+
+	<div id="add_more"><input type="image" src="/site_media/Add-icon.png" value="Add More" id="add_more"><a>Add</a><br></div>
 	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
-	<input type='submit' value='submit'/>
+	<input type='submit' value='submit' id='submit'/>	
 
 	{% for form in formset.forms %}
 	<div class='table'>
     <table class='no_error'>
        <table>
        	{{ form.id }}
-       	<ul>
-       		<li>{{ form.phrase }} &nbsp; {{ form.value }}</li>
-			{{ form.SearchTermID.as_hidden }} {{ form.DELETE.as_hidden }}
-       	</ul>
+       		{{ form.phrase }} &nbsp; {{ form.value }}
+			{{ form.SearchTermID.as_hidden }} 
+			{{ form.DELETE.as_hidden }}
+			<input type="image" src="/site_media/Delete-icon.png"/>
        </table>
     </table>
 	</div>
 	{% endfor %}
 	</form>
-	<input type="button" value="Add More" id="add_more">
+	
 <script>
     $('#add_more').click(function() {
         cloneMore('div.table:last', 'form');
     });
+	
+	$( '#twsearch' ).live('click', function() {	
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")	
+			//on submit, hide current results, ajax post the search form, then render results to rawsearch div
+			$('#twsearch').ajaxForm(function() {
+				$( '#RawSearch' ).hide();
+				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
+					$('#RawSearch').html(data);
+					$( '#RawSearch' ).show() 
+					});
+			});
+		});
+
+	
 </script>
 
 
@@ -52,5 +68,6 @@
 	    $('#id_' + type + '-TOTAL_FORMS').val(total);
 	    $(selector).after(newElement);
 	}
+
 
 </script>
