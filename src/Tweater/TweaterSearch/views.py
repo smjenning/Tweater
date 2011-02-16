@@ -71,27 +71,17 @@ def edit(request, SearchTerm_id):
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
 def keywordformsetfactory(request, SearchTerm_id):
-    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
+    if count(keywords for this searchterm) == 0:
+        n = 1
+    else:
+        n = 0
+    
+    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=n, max_num = None)
     #put some validation here..
     if request.method == 'POST':
         #add yet more validation here. eventually.
-            formset = KeywordFormset(request.POST, request.FILES)
-            '''
-            for form in formset:
-                #print form.initial
-                print form.fields["phrase"].__dict__
-                if form.fields["phrase"] == "":
-                    
-                    form.fields["phrase"] = "temp"
-                    form.fields["DELETE"] = True
-                    form.fields["score"] = 0
-                    if not form.is_valid():
-                        print form.errors
-                    else:
-                        form.save()
-                        print "saved"
-            '''               
-            pass#formset.save()
+            formset = KeywordFormset(request.POST, request.FILES)        
+            formset.save()
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
@@ -111,4 +101,13 @@ def neworedit(request, SearchTerm_id):
         f = SearchTermFormAll(instance=t)
         data = { 'form': f, 'id' : SearchTerm_id }
     return render_to_response( template , data, context_instance = RequestContext( request ))     
+
+def delkw(request, kid, SearchTerm_id):
+    #render current list of keywords/weights
+    k = Keyword.objects.get(id=kid)
+    k.delete()
+    template = 'TweaterSearch/keywordform.html'
+    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
+    formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
+    return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
 

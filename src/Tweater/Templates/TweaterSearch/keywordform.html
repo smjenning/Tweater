@@ -16,10 +16,17 @@
        		{{ form.phrase }} &nbsp; {{ form.value }}
 			{{ form.SearchTermID.as_hidden }} 
 			{{ form.DELETE.as_hidden }}
-			<input type="image" src="/site_media/Delete-icon.png"/>
+			<img src="/site_media/Delete-icon.png" id="del-{{ form.id.value }}"/>
        </table>
     </table>
 	</div>
+	<script>
+		$('#del-{{ form.id.value }}').click(function() {
+        	$.get("/TweaterSearch/delkw/{{ SearchTermID }}/{{ form.id.value }}"); 
+			alert("changes submitted");
+    	});	
+	</script>
+	
 	{% endfor %}
 	</form>
 	
@@ -28,18 +35,13 @@
         cloneMore('div.table:last', 'form');
     });
 	
-	$( '#twsearch' ).live('click', function() {	
-			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")	
-			//on submit, hide current results, ajax post the search form, then render results to rawsearch div
-			$('#twsearch').ajaxForm(function() {
-				$( '#RawSearch' ).hide();
-				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
-					$('#RawSearch').html(data);
-					$( '#RawSearch' ).show() 
-					});
-			});
-		});
-
+	$('#submit#').click(function() { 
+		$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43");		
+		
+        alert("changes submitted"); 
+           //do more here
+		 
+	});
 	
 </script>
 
@@ -55,7 +57,7 @@
 	        var id = 'id_' + name;
 	        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
 
-			if (name.indexOf("SearchTermID") > 1)
+			if (name.indexOf("SearchTermID") > 0)
 			{
 				$(this).attr({'value': {{ SearchTermID }} });
 			}
