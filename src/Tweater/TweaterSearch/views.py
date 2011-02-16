@@ -87,14 +87,6 @@ def keywordformsetfactory(request, SearchTerm_id):
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
-        ''' want to find a way to default searchterm fk for unsaved records, something like:
-        for form in formset.save(commit=False):
-            form.SearchTermID = SearchTerm.objects.get(id=SearchTerm_id)
-            form.save()
-        formset.save()
-        '''
-        for form in formset:
-            form.SearchTermID = SearchTerm_id
     template = 'TweaterSearch/keywordform.html'
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
 

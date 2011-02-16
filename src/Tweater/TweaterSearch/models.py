@@ -28,7 +28,17 @@ class SearchTerm(models.Model):
     phone           = models.CharField(max_length=20)
     def __unicode__(self):
         return self.phrase
-    
+    def save(self, *args, **kwargs):
+        if self.pk:
+            super(SearchTerm, self).save(*args, **kwargs)
+        else:
+            super(SearchTerm, self).save(*args, **kwargs)
+            k = Keyword()
+            k.phrase = self.phrase
+            k.SearchTermID = self
+            k.score = 10
+            k.save() 
+   
 class Keyword(models.Model):
     id              = models.AutoField(primary_key=True)
     SearchTermID    = models.ForeignKey('SearchTerm')

@@ -6,10 +6,16 @@
 	{{ formset.management_form }}
 	<input type='submit' value='submit'/>
 
-	{% for form in formset %}
+	{% for form in formset.forms %}
 	<div class='table'>
     <table class='no_error'>
-        {{ form.as_table }}
+       <table>
+       	{{ form.id }}
+       	<ul>
+       		<li>{{ form.phrase }} &nbsp; {{ form.value }}</li>
+			{{ form.SearchTermID.as_hidden }} {{ form.DELETE.as_hidden }}
+       	</ul>
+       </table>
     </table>
 	</div>
 	{% endfor %}
@@ -32,10 +38,9 @@
 	        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
 	        var id = 'id_' + name;
 	        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-			
+
 			if (name.indexOf("SearchTermID") > 1)
 			{
-				//alert(name);
 				$(this).attr({'value': {{ SearchTermID }} });
 			}
 	    });
@@ -47,5 +52,5 @@
 	    $('#id_' + type + '-TOTAL_FORMS').val(total);
 	    $(selector).after(newElement);
 	}
-	
+
 </script>
