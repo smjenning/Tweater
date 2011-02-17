@@ -1,7 +1,7 @@
 {% block content %}
+
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
-
 
 	<div id="add_more"><input type="image" src="/site_media/Add-icon.png" value="Add More" id="add_more"><a>Add</a><br></div>
 	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
@@ -9,16 +9,13 @@
 	<input type='submit' value='submit' id='submit'/>	
 
 	{% for form in formset.forms %}
-	<div class='table'>
-    <table class='no_error'>
-       <table>
-       	{{ form.id }}
-       		{{ form.phrase }} &nbsp; {{ form.value }}
+	<div class='table'>  
+      	 	{{ form.id }}
+       		{{ form.phrase }}
+			{{ form.value }} 
 			{{ form.SearchTermID.as_hidden }} 
 			{{ form.DELETE.as_hidden }}
 			<img src="/site_media/Delete-icon.png" id="del-{{ form.id.value }}"/>
-       </table>
-    </table>
 	</div>
 	<script>
 		$('#del-{{ form.id.value }}').click(function() {

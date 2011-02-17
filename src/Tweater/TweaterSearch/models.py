@@ -1,6 +1,8 @@
 from django.db import models
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
+from django import forms
+
 # Create your models here.
 # searchterm needs to be made more friendly for nulls in geo and phone fields
 class SearchTerm(models.Model):
@@ -69,10 +71,18 @@ class SearchTermFormAll(ModelForm):
     class Meta:
         model = SearchTerm
 
-class KeywordForm(ModelForm):
+class KeywordForm(ModelForm): 
+    #phrase = forms.TextInput({'size': '5'})
+    #score = forms.CharField(widget=forms.Textarea(attrs={'cols': '5'}))
+    #id = forms.ModelChoiceField(queryset=SearchTerm.objects.all())
+    def __init__(self, *args, **kwargs):
+        super(KeywordForm, self).__init__(*args, **kwargs)
+        self.fields['phrase'].widget.attrs['size'] = '20'
+        self.fields['value'].widget.attrs['size'] = '5'
     class Meta:
         model = Keyword
-        fields = ('id','phrase', 'value')
-        
-#>>> KeywordFormset(modelformset_factory(KeywordForm))
+        fields = ('SearchTermID','phrase','value')
+       
+
+
     

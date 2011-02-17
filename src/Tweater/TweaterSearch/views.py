@@ -17,14 +17,18 @@ def search(request, SearchTerm_id):
     api = auth.GetTweepyAPI()
     term = SearchTerm.objects.get(id=SearchTerm_id)
     
-    recent = api.search(q=term.phrase,lang=term.lang)
+    recent = api.search(q=term.phrase,lang=term.lang,rpp=term.pagesize)
+    '''
+    if, for whatever reason, I wanted to return yet more tweets
     i = 2
-    while len(recent) < term.pagesize:
+    while len(recent) < term.pagesize: 
+        #of course, pagesize is not the variable here, we don't have a variable for this yet
         #this is wrong in several ways.  Actually, only two ways
         #1: if the number of tweets cached by twitter is less than pagesize, catch and escape that
         #2: once I have enough tweets, chop off the extra ones (currently adds a full page at a time)
         recent.extend(api.search(q=term.phrase,lang=term.lang,page=i))
         i += 1
+    '''    
         
     r = scoring.score(recent, SearchTerm_id)
     template = 'TweaterSearch/results.html'
@@ -70,10 +74,8 @@ def edit(request, SearchTerm_id):
     template = 'TweaterSearch/termdetail.html'
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
-def keywordformsetfactory(request, SearchTerm_id):
-
-    
-    KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
+def keywordformsetfactory(request, SearchTerm_id):  
+    KeywordFormset = modelformset_factory(Keyword, KeywordForm, can_delete=1, extra=0, max_num = None)
     #put some validation here..
     if request.method == 'POST':
         #add yet more validation here. eventually.
