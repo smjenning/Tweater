@@ -1,4 +1,8 @@
 <style>
+		.fakelink{
+			cursor: pointer;
+	
+		}
 		
 		.image {
 			float: left;
