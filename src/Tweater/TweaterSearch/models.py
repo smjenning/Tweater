@@ -26,7 +26,7 @@ class SearchTerm(models.Model):
     address_state   = models.CharField(max_length=50, blank=True)
     address_country = models.CharField(max_length=50, blank=True)
     address_zip     = models.CharField(max_length=50, blank=True)
-    website         = models.URLField(blank=True, default='0')
+    website         = models.URLField(blank=True, default='www.google.com')
     phone           = models.CharField(max_length=20,default='0')
     def __unicode__(self):
         return self.phrase
