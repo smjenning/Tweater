@@ -17,5 +17,7 @@ urlpatterns = patterns('TweaterSearch.views',
         'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^delkw/(?P<SearchTerm_id>\d+)/(?P<kid>\d+)/$', 'delkw', name="delkw"),
+    url(r'^delst/(?P<SearchTerm_id>\d+)/$', 'delst', name="delst"),
+    
 
 )

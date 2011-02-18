@@ -15,7 +15,7 @@ def index(request):
 def search(request, SearchTerm_id):
     #need to tidy up variable names
     api = auth.GetTweepyAPI()
-    term = SearchTerm.objects.get(id=SearchTerm_id)
+    term = get_object_or_404(SearchTerm, id=SearchTerm_id)
     
     recent = api.search(q=term.phrase,lang=term.lang,rpp=term.pagesize)
     '''
@@ -117,4 +117,10 @@ def delkw(request, kid, SearchTerm_id):
     KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
     formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
+
+def delst(request, SearchTerm_id):
+    term = get_object_or_404(SearchTerm, id=SearchTerm_id)
+    term.delete()
+    latest_search_list = SearchTerm.objects.all().order_by('phrase')
+    return render_to_response('TweaterSearch/index.html', {'latest_search_list': latest_search_list})
 

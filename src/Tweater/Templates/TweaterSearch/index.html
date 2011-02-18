@@ -10,7 +10,7 @@
 	<!-- {% include "TweaterSearch/style.css" %}-->
 	<link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
 	<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">
-
+	<link rel="stylesheet" href="/TweaterSearch/style.css" type="text/css">
 	<script type="text/javascript" src="/site_media/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	<script type="text/javascript" src="/site_media/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<link rel="stylesheet" type="text/css" href="/site_media/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -41,10 +41,26 @@
 		{% if latest_search_list %}
 		    
 		    {% for SearchTerm in latest_search_list %}
-		        <p><a href="/TweaterSearch/term/{{ SearchTerm.id }}/" name="edit-{{ SearchTerm.id }}"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
+		        <p>
+				<a><img src="/site_media/Delete-icon.png" id="del-{{ SearchTerm.id }}"/></a>
+				<a href="/TweaterSearch/term/{{ SearchTerm.id }}/" name="edit-{{ SearchTerm.id }}"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
 				<a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
 				</p>
-				
+	<script>
+		$('#del-{{ SearchTerm.id }}').click(function() {
+		var r=confirm("Delete SearchTerm?");
+		if (r==true)
+		{
+        	var jqxhr = $.post("/TweaterSearch/delst/{{ SearchTerm.id }}/", 
+			function(data) { location.reload();   })
+  			.success(function() {   })
+  			.error(function() { alert("Could not delete"); })
+  			.complete(function() {  });			
+    	}
+		
+		});	
+		
+	</script>				
 				
 		    {% endfor %}
 		    
