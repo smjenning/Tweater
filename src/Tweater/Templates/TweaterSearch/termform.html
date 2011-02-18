@@ -8,20 +8,17 @@
     <script language="JavaScript">
 
     function subs(){
-	  
-	  window.parent.$.fancybox.close();
+	  $.post("/TweaterSearch/termform/2/", $("#termform").serialize(), function(){ window.parent.$.fancybox.close(); });
+		
     }
 
     </script>
 </head>
-<form id='termform' action='/TweaterSearch/termform/{{ id }}/' method='post'> {% csrf_token %}
-
-	<input type='submit' value='submit' onclick="subs()"/>
-
+<form id='termform' action='' method='post'> {% csrf_token %}
+	<input type='button' value='submit' onclick="subs()"/>
 	<table>
 	{{ form }}	
 	</table>
-	
 </form>
 
 
