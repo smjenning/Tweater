@@ -11,7 +11,7 @@
 	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script> 
  
 	
-<!-- {% include "TweaterSearch/style.css" %} -->
+ {% include "TweaterSearch/style.css" %}
 	<link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
 	<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">	
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
@@ -29,13 +29,16 @@
 	</div>
 
 	<div class="span-8">
-		<div id="TwitterSearch">
+		
+	<div id="TwitterSearch">
+			<div class="subhead">
 			<form id='twsearch' action='' method=''> 
 				{% csrf_token %}
 				<input id="q" type="text" name="q"/>
 				<input id="searchSubmit" type="submit" value="Search"/>
 			</form>
-	
+			</div>
+			
 		<div id="RawSearch">
 		</div>
 	</div>
@@ -44,22 +47,27 @@
 	
 	<div class="span-8">
 		<div id="SearchResults">
+			<div class="subhead">
 			<div id="RefreshButton">
-				<input id="refreshTweater" type="submit" value="Refresh"/>
+				<input id="refreshTweater" type="submit" value="Refresh" vspace="5"/>
 			</div>
-			<div class="margin">
-				<div id="results">result area</div>
 			</div>
+				<div id="results"></div>
 		</div>
 	</div>
 		
 	<div class="span-8 last">
-		<div id="tabs">
+		<ul class="tabs">
 			
-			<a href="#SearchTerm" id="termtab">Term</a> 
-			||	<a href="#TermDetail" id="keywordtab">Keywords</a>
+			<li><a href="#SearchTerm" id="termtab">Term</a></li> 
+			<li><a href="#TermDetail" id="keywordtab">Keywords</a></li>
+		</ul>
+		<div class="tab_container">
+		<div class="tab_content">
+			<div id="TermDetail">
 			
-		<div id="TermDetail"></div>
+		</div>
+		</div>
 		</div>		
 	</div>
 	

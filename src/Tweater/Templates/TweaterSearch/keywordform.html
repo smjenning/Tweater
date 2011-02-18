@@ -3,10 +3,15 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
 	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	
 
-	<div id="add_more"><input type="image" src="/site_media/Add-icon.png" value="Add More" id="add_more"><a>Add</a><br></div>
+	
+	<div id="add_more">
+		<input type="image" src="/site_media/Add-icon.png" value="Add More" id="add_more"><a>Add New</a>	
+	</div>
+	<br>
 	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
-	<input type='submit' value='submit' id='submit'/>	
+	<input type='submit' value='submit changes' id='submit'/>	
+	
 
 	{% for form in formset.forms %}
 	<div class='table'>  
@@ -15,7 +20,7 @@
 			{{ form.value }} 
 			{{ form.SearchTermID.as_hidden }} 
 			{{ form.DELETE.as_hidden }}
-			<img src="/site_media/Delete-icon.png" id="del-{{ form.id.value }}"/>
+			<img src="/site_media/Delete-icon.png" id="del-{{ form.id.value }}" vspace="0"/>
 	</div>
 	<script>
 		$('#del-{{ form.id.value }}').click(function() {
@@ -23,13 +28,14 @@
 		if (r==true)
 		{
         	var jqxhr = $.get("/TweaterSearch/delkw/{{ SearchTermID }}/{{ form.id.value }}", 
-			function() {   alert("keyword deleted"); })
+			function() {    })
   			.success(function() {  })
   			.error(function() { alert("Could not delete. SearchTerm must have at least one keyword"); })
   			.complete(function() {  });			
     	}
 		
 		});	
+		
 	</script>
 	
 	{% endfor %}
@@ -41,15 +47,11 @@
     });
 	
 	$('#submit#').click(function() { 
-		$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43");		
-		
-        alert("changes submitted"); 
-           //do more here
-		 
-	});
-	
+		$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43");				
+        //alert("changes submitted");          
+		//do more here		 
+	});	
 </script>
-
 
 {% endblock %}
 
@@ -66,6 +68,7 @@
 			{
 				$(this).attr({'value': {{ SearchTermID }} });
 			}
+
 	    });
 	    newElement.find('label').each(function() {
 	        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');

@@ -1,155 +1,103 @@
 <style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		body {
-			font-size: 80%;
-			background-color: #eee;
-		}
-		#wrap {
-			width: 800px;
-			margin: 0em left;
-			line-height: 1.6;
-			font-family: Helvetica, Arial, sans-serif;
-		}
-		#header {
-			background: #111;
-			color: white;
-		}
-		#header, #content {
-			padding: 10px;
-		}
-		#SearchResults {
-			position: absolute;
-			left: 400px;
-			top: 20px;
-			width: 354px;
-			background: yellow;
-		}
-		#refreshTweater {
-			position: absolute;
-			left: 400px;
-			top: 0px;
-			width: 354px;
-			background: yellow;
-		}
-		#RawSearch {
-			position:absolute;
-			left: 0px;
-			top: 20px;
-			width: 354px;
-			margin: 0em left;
-			background-color: #ccc;
-		}
-		#TwitterSearch {
-			position:absolute;
-			left: 0px;
-			top: 0px;
-			width: 354px;
-			margin: 0em left;
-			background-color: #ccc;
-		}
-		#tabs {
-			position:absolute;
-			right: 0px;
-			top: 20px;
-			width: 300px;
-			margin: 0em right;
-			background: green;
-		}
-		#TermDetail {
-			position:absolute;
-			right: 0px;
-			top: 20px;
-			width: 300px;
-			margin: 0em right;
-			background: green;
-		}
-		#navigation {
-			position:absolute;
-			right: 200px;
-			top: 20px;
-			width: 300px;
-			margin: 0em right;
-			background: #a23;
-		}
-		#spinner {
- 			 display: none;
-  			position: relative;
-		}
-		h1 {
-			font-family: Georgia;
-			font-weight: 100;
-			font-style: italic;
-			font-size: 30px;
-			padding-top: 10px;
-		}
-
-		.auth {
-			font-size: 30px;
-			color: white;
-			background: #222;
-			padding: 25px;
-			-moz-border-radius: 10px;
-			-webkit-border-radius: 10px;
-			border-radius: 10px;
-		}
-		.auth:hover {
-			background: #000;
-		}
-
-		.odd {
-			background: #f3f3f3;
-		}
-
-		ul {
-			list-style: none;
-		}
-
-		dl {
-			width: 280px;
-			float: left;
-			margin-left: 50px;
-		}
-		dt {
-			float: left;
-			width: 100px;
-			text-transform: uppercase;
-			font-weight: bold;
-		}
-		dd {
-			float: right;
-			width: 280px;
-			color: #666;
-			text-align: left;
-		}
-
+		
 		.image {
 			float: left;
-			margin-right: 2px;
+			margin-left: 10px;
 			margin-top: 5px;
-			width: 10px;
+			width: 50px;
 			text-align: center;
+			outline-style: dotted;
+			
+			z-index: 99;
 		}
+
 		.twitter_user {
 			padding: 2px;
 			margin-left: 0px;
 			border-bottom: 1px solid #f1f1f1;
-			width: 350px;
-			height: 100px;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			background-color: #FFE773;
+			margin-bottom: 5px;
+			height: 125px;			
 		}
+		
 		.clearer {
 			clear: both;
 		}
 
-		h2 {
-			font-size: 24px;
-			margin-top: 1px;
-			color: #0b73de;
-			margin-bottom: 5px;
+		.tweet {
+			margin-top: -5px;
+			font-size: 10px;
+			margin-left: 40px;
+			margin-right: 40px;
+			text-align: justify;	
 		}
-		p {
-			margin-bottom: 1.5em;
+		
+		.subhead {
+			height: 35px;
+			vertical-align: middle; 		
 		}
+				
+		ul.tabs {
+			margin: 0;
+			padding: 0;
+			float: left;
+			list-style: none;
+			height: 32px; /*--Set height of tabs--*/
+			border-bottom: 1px solid #999;
+			border-left: 1px solid #999;
+			width: 100%;
+		}
+		ul.tabs li {
+			float: left;
+			margin: 0;
+			padding: 0;
+			height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+			line-height: 31px; /*--Vertically aligns the text within the tab--*/
+			border: 1px solid #999;
+			border-left: none;
+			margin-bottom: -1px; /*--Pull the list item down 1px--*/
+			overflow: hidden;
+			position: relative;
+			background: #e0e0e0;
+		}
+		ul.tabs li a {
+			text-decoration: none;
+			color: #000;
+			display: block;
+			font-size: 1.2em;
+			padding: 0 20px;
+			border: 1px solid #fff; /*--Gives the bevel look with a 1px white border inside the list item--*/
+			outline: none;
+		}
+		ul.tabs li a:hover {
+			background: #ccc;
+		}
+		html .tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
+			background: #fff;
+			border-bottom: 1px solid #fff; /*--Makes the active tab look like it's connected with its content--*/
+		}		
+		.tab_container {
+			border: 1px solid #999;
+			border-top: none;
+			overflow: hidden;
+			clear: both;
+			float: left; width: 100%;
+			background: #fff;
+		}
+		.tab_content {
+			padding: 5px;
+			font-size: 1.2em;
+		}
+		
+		#add_more {
+			padding: 5px;
+			background-color: #FFB673;
+			z-index: 88;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			vertical-align: middle;
+			width: auto;
+			}			
 </style>
