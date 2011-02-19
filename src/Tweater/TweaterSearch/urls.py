@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 #from django.views.generic import DetailView, ListView
-from TweaterSearch.views import *
+#from TweaterSearch.views import *
 from django.conf import settings
 
 urlpatterns = patterns('TweaterSearch.views',

@@ -2,6 +2,9 @@ from django.db import models
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django import forms
+from django.contrib.auth.models import User
+import datetime
+
 
 # Create your models here.
 # searchterm needs to be made more friendly for nulls in geo and phone fields
@@ -28,6 +31,8 @@ class SearchTerm(models.Model):
     address_zip     = models.CharField(max_length=50, blank=True)
     website         = models.URLField(blank=True, default='www.google.com')
     phone           = models.CharField(max_length=20,default='0')
+    createdby       = User
+    createddate     = models.DateTimeField(default=datetime.datetime.now())
     def __unicode__(self):
         return self.phrase
     def save(self, *args, **kwargs):

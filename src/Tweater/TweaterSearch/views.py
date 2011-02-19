@@ -1,12 +1,14 @@
 # Create your views here.
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template import Context, loader, RequestContext
+from django.core.context_processors import csrf
+#from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from Tweater.TweaterSearch.models import SearchTerm, Keyword, KeywordForm, SearchTermForm, SearchTermFormAll
+from Tweater.TweaterSearch.models import *
 from django.forms.models import modelformset_factory
 import scoring
 import auth
+
 
 def index(request):
     latest_search_list = SearchTerm.objects.all().order_by('phrase')
