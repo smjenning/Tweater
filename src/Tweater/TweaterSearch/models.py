@@ -66,6 +66,28 @@ class Result(models.Model):
     SearchTermID    = models.IntegerField(default='0')
     def __unicode__(self):
         return self.statusid + '--' + self.from_user
+
+class Todo(models.Model):
+    TYPE_CHOICES    = (
+                       ('B','bug')
+                       ('E','enhancement'),
+                       )
+    STATUS_CHOICES  = (
+                       ('S','submitted'),
+                       ('R','rejected'),
+                       ('A','accepted'),
+                       ('P','in progress'),
+                       ('D','done'),
+                       )
+    id              = models.AutoField(primary_key=True)
+    createdby       = User
+    createddate     = models.DateTimeField(default=datetime.datetime.now())
+    summary         = models.CharField(max_length=200, blank=True)
+    action          = models.CharField(max_length=200, blank=True)
+    type            = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    status          = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    def __unicode__(self):
+        return self.summary
     
 class SearchTermForm(ModelForm):
     class Meta:
