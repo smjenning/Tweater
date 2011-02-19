@@ -47,5 +47,8 @@ urlpatterns = patterns('',
     url(r'^TweaterSearch/delst/(?P<SearchTerm_id>\d+)/$', 
         delst, 
         name="delst"),
+    url(r'^TweaterSearch/addtodo/$', 
+        addtodo, 
+        name="addtodo"),
     
 )

@@ -31,7 +31,7 @@ class SearchTerm(models.Model):
     address_zip     = models.CharField(max_length=50, blank=True)
     website         = models.URLField(blank=True, default='www.google.com')
     phone           = models.CharField(max_length=20,default='0')
-    createdby       = User
+    createdby       = models.ForeignKey(User, blank=True, null=True)
     createddate     = models.DateTimeField(default=datetime.datetime.now())
     def __unicode__(self):
         return self.phrase
@@ -69,7 +69,7 @@ class Result(models.Model):
 
 class Todo(models.Model):
     TYPE_CHOICES    = (
-                       ('B','bug')
+                       ('B','bug'),
                        ('E','enhancement'),
                        )
     STATUS_CHOICES  = (
@@ -80,12 +80,12 @@ class Todo(models.Model):
                        ('D','done'),
                        )
     id              = models.AutoField(primary_key=True)
-    createdby       = User
+    createdby       = models.ForeignKey(User, blank=True, null=True)
     createddate     = models.DateTimeField(default=datetime.datetime.now())
     summary         = models.CharField(max_length=200, blank=True)
     action          = models.CharField(max_length=200, blank=True)
-    type            = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    status          = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    type            = models.CharField(max_length=1, choices=TYPE_CHOICES, default='B')
+    status          = models.CharField(max_length=1, choices=STATUS_CHOICES, default='S')
     def __unicode__(self):
         return self.summary
     
@@ -109,7 +109,25 @@ class KeywordForm(ModelForm):
     class Meta:
         model = Keyword
         fields = ('SearchTermID','phrase','value')
+
+class TodoFormAdd(ModelForm): 
+    #phrase = forms.TextInput({'size': '5'})
+    #score = forms.CharField(widget=forms.Textarea(attrs={'cols': '5'}))
+    #id = forms.ModelChoiceField(queryset=SearchTerm.objects.all())
+    def __init__(self, *args, **kwargs):
+        super(TodoFormAdd, self).__init__(*args, **kwargs)
+    class Meta:
+        model = Todo
+        fields = ('summary','type')
        
+class TodoFormEdit(ModelForm): 
+    #phrase = forms.TextInput({'size': '5'})
+    #score = forms.CharField(widget=forms.Textarea(attrs={'cols': '5'}))
+    #id = forms.ModelChoiceField(queryset=SearchTerm.objects.all())
+    def __init__(self, *args, **kwargs):
+        super(TodoFormEdit, self).__init__(*args, **kwargs)
+    class Meta:
+        model = Todo
 
 
     

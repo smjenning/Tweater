@@ -126,3 +126,14 @@ def delst(request, SearchTerm_id):
     latest_search_list = SearchTerm.objects.all().order_by('phrase')
     return render_to_response('TweaterSearch/index.html', {'latest_search_list': latest_search_list})
 
+def addtodo(request):
+    if request.method == 'POST':
+        f = TodoFormAdd(request.POST)
+        if f.is_valid():
+            f.save()
+    else:
+            f = TodoFormAdd()
+    template = 'TweaterSearch/addtodo.html'  
+    data = { 'form': f, 'id' : 0 }
+    return render_to_response( template , data, context_instance = RequestContext( request ))
+
