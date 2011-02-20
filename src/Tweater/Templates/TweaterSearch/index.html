@@ -77,7 +77,9 @@
 			'autoScale'			: true,
 			'transitionIn'		: 'elastic',
 			'transitionOut'		: 'none',
-			'type'				: 'iframe'
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+								  parent.location.reload(true); }
 		});
 		$('a[name^="edit"]').fancybox({
 			'width'				: '30%',
@@ -85,7 +87,9 @@
 			'autoScale'			: true,
 			'transitionIn'		: 'elastic',
 			'transitionOut'		: 'none',
-			'type'				: 'iframe'
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+   								  parent.location.reload(true); }
 		});
 	});
 </script>

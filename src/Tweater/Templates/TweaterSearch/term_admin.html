@@ -5,7 +5,8 @@
 <head>
 	<title>Term Admin</Title>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	{% include "TweaterSearch/includes.html" %}
+	
+{% include "TweaterSearch/includes.html" %} 
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 
 </head>
@@ -13,12 +14,12 @@
 <div class="container">
 	
 	<div class="span-24 last">
-		
+
 		<a href="/TweaterSearch/">home</a> ||
 		<a href="/TweaterSearch/">about</a> ||
-		<a href="/TweaterSearch/viewtodo/" name="todolist">to do</a> ||
+		<a href="/TweaterSearch/viewtodo/"  name="todolist">to do</a> ||
 		<a href="/TweaterSearch/">contact</a> ||
-		<a href="/TweaterSearch/addtodo/" name="todoform">add todo</a>
+		<a href="/TweaterSearch/addtodo/" id="todoform" name="todoform">add todo</a>
 	</div>
 
 	<div class="span-8">
@@ -73,8 +74,8 @@
 		
 		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
 		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
-		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 		
-
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 			
+ 
 		$( '#theform#' ).live('click', function() { 
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
 			//for keywords
@@ -137,7 +138,7 @@
 		});
 		
 		//fancybox links
-		$('a[name^="todoform"]').fancybox({
+		$('a[name="todoform"]').fancybox({
 			'width'				: '40%',
 			'height'			: '40%',
 			'autoScale'			: true,
@@ -146,7 +147,7 @@
 			'type'				: 'iframe'
 		});
 			
-		$('a[name^="todolist"]').fancybox({
+		$('a[name="todolist"]').fancybox({
 			'width'				: '90%',
 			'height'			: '90%',
 			'autoScale'			: true,
@@ -157,13 +158,7 @@
 			
 	});
 	
-
-
-
 </script>
-
-
-	</script>
 
 </html>
 {% endblock %}
