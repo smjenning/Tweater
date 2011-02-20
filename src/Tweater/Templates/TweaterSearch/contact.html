@@ -1,0 +1,66 @@
+{% block content %}
+
+<html lang="en">
+
+<head>
+	<title>Term Admin</Title>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+{% include "TweaterSearch/includes.html" %} 
+<!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+</head>
+
+<div class="container">
+	
+	<div class="span-24 last">
+
+		<a href="/TweaterSearch/">home</a> ||
+		<a href="/TweaterSearch/">about</a> ||
+		<a href="/TweaterSearch/viewtodo/"  name="todolist">to do</a> ||
+		<a href="/TweaterSearch/">contact</a> ||
+		<a href="/TweaterSearch/addtodo/" id="todoform" name="todoform">add todo</a>
+	</div>
+
+	<div class="span-8">
+	</div>	
+	
+	<div class="span-8">
+	</div>	
+	
+	<div class="span-8 last">
+	</div>	
+	
+</div>  <!-- end container div -->
+
+<script>	
+	
+	$( document ).ready( function() 
+	{
+		
+		
+		//fancybox links
+		$('a[name="todoform"]').fancybox({
+			'width'				: '35%',
+			'height'			: '25%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe'
+		});
+			
+		$('a[name="todolist"]').fancybox({
+			'width'				: '90%',
+			'height'			: '90%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe'
+		});
+			
+	});
+	
+</script>
+
+</html>
+{% endblock %}

@@ -159,3 +159,11 @@ def viewtodo(request):
     #should probably exclude completed/rejected tasks, or provide filter in view
     template = 'TweaterSearch/todolist.html'
     return render_to_response(template, {'todolist' : todolist}, context_instance = RequestContext( request ))
+
+def about(request):
+    template = 'TweaterSearch/about.html'
+    return render_to_response(template, context_instance = RequestContext( request ))
+
+def contact(request):
+    template = 'TweaterSearch/contact.html'
+    return render_to_response(template, context_instance = RequestContext( request ))

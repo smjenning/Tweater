@@ -56,5 +56,11 @@ urlpatterns = patterns('',
     url(r'^TweaterSearch/viewtodo/$', 
         viewtodo, 
         name="viewtodo"),
+    url(r'^TweaterSearch/about/$', 
+        about, 
+        name="about"),
+    url(r'^TweaterSearch/contact/$', 
+        contact, 
+        name="contact"),
    
 )
