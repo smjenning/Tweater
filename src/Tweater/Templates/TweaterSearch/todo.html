@@ -1,0 +1,52 @@
+{% block content %}
+<head>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
+	<script type="text/javascript" src="/site_media/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="/site_media/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="/site_media/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/site_media/style.css"/>
+
+    <script language="JavaScript">
+
+    function subs(){
+	  $.post("/TweaterSearch/managetodo/", $("#todoformset").serialize(), function(){ window.parent.$.fancybox.close(); });	
+    }
+
+    </script>
+</head>
+<form id='todoformset' action='' method='post'>	 {% csrf_token %}
+	
+	{{ formset.management_form }}
+	<input type='button' value='submit' onclick="subs()"/>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>Summary</th>
+			<th>Type</th>
+			<th>Status</th>
+			<th>Action</th>
+			<th>Created By</th>
+			<th>Created Date</th>
+			<th>DELETE?</th>
+		</tr>
+	{% for form in formset.forms %}
+	<tr>  <!-- make rows cycle colors? -->					
+		<td>{{ form.id }}</td>
+		<td>{{ form.summary }}</td>
+		<td>{{ form.type }}</td>
+		<td>{{ form.status }}</td>
+		<td>{{ form.action }}</td>
+		<td>{{ form.createdby }}</td>
+		<td>{{ form.createddate }}</td>
+		<td>{{ form.DELETE }}</td>
+	</tr>
+	
+	{% endfor %}
+</table>
+</form>
+
+
+
+{% endblock %}
+
+	

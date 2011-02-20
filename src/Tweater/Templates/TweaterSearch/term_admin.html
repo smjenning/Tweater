@@ -5,15 +5,7 @@
 <head>
 	<title>Term Admin</Title>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.js"></script>
-	<script type="text/javascript" src="/site_media/jquery.form.js"></script> 	 
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js" type="text/javascript"></script> 
-	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script> 
- 
-	
- {% include "TweaterSearch/style.css" %}
-	<link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">	
+	{% include "TweaterSearch/includes.html" %}
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 
 </head>
@@ -23,9 +15,10 @@
 	<div class="span-24 last">
 		
 		<a href="/TweaterSearch/">home</a> ||
+		<a href="/TweaterSearch/">about</a> ||
+		<a href="/TweaterSearch/viewtodo/" name="todolist">to do</a> ||
 		<a href="/TweaterSearch/">contact</a> ||
-		<a href="/TweaterSearch/">to do</a> ||
-		<a href="/TweaterSearch/">other</a>
+		<a href="/TweaterSearch/addtodo/" name="todoform">add todo</a>
 	</div>
 
 	<div class="span-8">
@@ -143,8 +136,31 @@
 				}); 
 		});
 		
+		//fancybox links
+		$('a[name^="todoform"]').fancybox({
+			'width'				: '40%',
+			'height'			: '40%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe'
+		});
+			
+		$('a[name^="todolist"]').fancybox({
+			'width'				: '90%',
+			'height'			: '90%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe'
+		});
+			
 	});
 	
+
+
+
+</script>
 
 
 	</script>

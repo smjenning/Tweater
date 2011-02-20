@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.forms.models import modelformset_factory
 from django import forms
 from django.contrib.auth.models import User
@@ -119,6 +119,9 @@ class TodoFormAdd(ModelForm):
     class Meta:
         model = Todo
         fields = ('summary','type')
+        widgets = {'summary': 
+                   Textarea(attrs={'cols': 30, 'rows': 3})
+                   }
        
 class TodoFormEdit(ModelForm): 
     #phrase = forms.TextInput({'size': '5'})
@@ -128,6 +131,10 @@ class TodoFormEdit(ModelForm):
         super(TodoFormEdit, self).__init__(*args, **kwargs)
     class Meta:
         model = Todo
-
+        widgets = {'summary': 
+                   Textarea(attrs={'cols': 30, 'rows': 3}),
+                   'action': 
+                   Textarea(attrs={'cols': 30, 'rows': 3}),
+                   }
 
     

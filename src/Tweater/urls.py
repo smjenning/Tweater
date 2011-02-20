@@ -50,5 +50,11 @@ urlpatterns = patterns('',
     url(r'^TweaterSearch/addtodo/$', 
         addtodo, 
         name="addtodo"),
-    
+    url(r'^TweaterSearch/managetodo/$', 
+        managetodo, 
+        name="managetodo"),
+    url(r'^TweaterSearch/viewtodo/$', 
+        viewtodo, 
+        name="viewtodo"),
+   
 )

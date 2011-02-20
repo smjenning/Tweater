@@ -137,3 +137,25 @@ def addtodo(request):
     data = { 'form': f, 'id' : 0 }
     return render_to_response( template , data, context_instance = RequestContext( request ))
 
+def managetodo(request):  
+    TodoFormset = modelformset_factory(Todo, TodoFormEdit, can_delete=1, extra=0, max_num = None)
+    #put some validation here..
+    if request.method == 'POST':
+        #add yet more validation here. eventually.
+            formset = TodoFormset(request.POST, request.FILES)        
+            if not formset.is_valid():
+                print formset.errors
+                pass
+            else:
+                formset.save()
+    else:
+        #if the request is not a post, i.e. you are just retrieving the existing list
+        formset = TodoFormset()
+    template = 'TweaterSearch/todo.html'
+    return render_to_response(template, {'formset' : formset}, context_instance = RequestContext( request ))
+
+def viewtodo(request):  
+    todolist = Todo.objects.all()
+    #should probably exclude completed/rejected tasks, or provide filter in view
+    template = 'TweaterSearch/todolist.html'
+    return render_to_response(template, {'todolist' : todolist}, context_instance = RequestContext( request ))
