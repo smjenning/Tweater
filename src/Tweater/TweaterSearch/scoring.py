@@ -35,10 +35,10 @@ def score(object, SearchTerm_id):
     except MySQLdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])    
     cursor = db.cursor()
-    sql = """DROP TABLE IF EXISTS t_scoring"""
-    cursor.execute(sql)
-    db.commit()
-    sql = """CREATE TABLE IF NOT EXISTS t_scoring (
+    #sql = """DROP TABLE IF EXISTS t_scoring"""
+    #cursor.execute(sql)
+    #db.commit()
+    sql = """CREATE TEMPORARY TABLE t_scoring (
             statusid char(128),
             score INT DEFAULT 0,
             text CHAR(200),
@@ -94,5 +94,6 @@ def score(object, SearchTerm_id):
     # sql = """DROP TABLE IF EXISTS t_scoring"""
     # cursor.execute(sql)  
     
-    cursor.close()    
+    cursor.close()  
+    db.close()
     return retval
