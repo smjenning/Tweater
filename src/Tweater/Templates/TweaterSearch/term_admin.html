@@ -13,26 +13,16 @@
 
 <div class="container">
 	
-	<div class="span-24 last">
-
-		<a href="/TweaterSearch/">home</a> ||
-		<a href="/TweaterSearch/about/">about</a> ||
-		<a href="/TweaterSearch/viewtodo/"  name="todolist">to do</a> ||
-		<a href="/TweaterSearch/contact/">contact</a> ||
-		<a href="/TweaterSearch/addtodo/" id="todoform" name="todoform">add todo</a>
-	</div>
+{% include "TweaterSearch/nav_header.html" %}
 
 	<div class="span-8">
 		
-	<div id="TwitterSearch">
-			<div class="subhead">
+	<div id="TwitterSearch">			
 			<form id='twsearch' action='' method=''> 
 				{% csrf_token %}
 				<input id="q" type="text" name="q"/>
 				<input id="searchSubmit" type="submit" value="Search"/>
-			</form>
-			</div>
-			
+			</form>						
 		<div id="RawSearch">
 		</div>
 	</div>
@@ -41,11 +31,11 @@
 	
 	<div class="span-8">
 		<div id="SearchResults">
-			<div class="subhead">
+			
 			<div id="RefreshButton">
 				<input id="refreshTweater" type="submit" value="Refresh" vspace="5"/>
 			</div>
-			</div>
+			
 				<div id="results"></div>
 		</div>
 	</div>
@@ -136,26 +126,7 @@
 				$( '#TermDetail' ).show('fast');
 				}); 
 		});
-		
-		//fancybox links
-		$('a[name="todoform"]').fancybox({
-			'width'				: '35%',
-			'height'			: '25%',
-			'autoScale'			: true,
-			'transitionIn'		: 'elastic',
-			'transitionOut'		: 'none',
-			'type'				: 'iframe'
-		});
-			
-		$('a[name="todolist"]').fancybox({
-			'width'				: '90%',
-			'height'			: '90%',
-			'autoScale'			: true,
-			'transitionIn'		: 'elastic',
-			'transitionOut'		: 'none',
-			'type'				: 'iframe'
-		});
-			
+					
 	});
 	
 </script>

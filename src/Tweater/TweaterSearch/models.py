@@ -111,9 +111,6 @@ class KeywordForm(ModelForm):
         fields = ('SearchTermID','phrase','value')
 
 class TodoFormAdd(ModelForm): 
-    #phrase = forms.TextInput({'size': '5'})
-    #score = forms.CharField(widget=forms.Textarea(attrs={'cols': '5'}))
-    #id = forms.ModelChoiceField(queryset=SearchTerm.objects.all())
     def __init__(self, *args, **kwargs):
         super(TodoFormAdd, self).__init__(*args, **kwargs)
     class Meta:
@@ -124,9 +121,6 @@ class TodoFormAdd(ModelForm):
                    }
        
 class TodoFormEdit(ModelForm): 
-    #phrase = forms.TextInput({'size': '5'})
-    #score = forms.CharField(widget=forms.Textarea(attrs={'cols': '5'}))
-    #id = forms.ModelChoiceField(queryset=SearchTerm.objects.all())
     def __init__(self, *args, **kwargs):
         super(TodoFormEdit, self).__init__(*args, **kwargs)
     class Meta:
