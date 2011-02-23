@@ -20,18 +20,15 @@ def search(request, SearchTerm_id):
     term = get_object_or_404(SearchTerm, id=SearchTerm_id)
     
     recent = api.search(q=term.phrase,lang=term.lang,rpp=term.pagesize)
+    
+    #if, for whatever reason, I wanted to return yet more tweets
     '''
-    if, for whatever reason, I wanted to return yet more tweets
     i = 2
-    while len(recent) < term.pagesize: 
-        #of course, pagesize is not the variable here, we don't have a variable for this yet
-        #this is wrong in several ways.  Actually, only two ways
-        #1: if the number of tweets cached by twitter is less than pagesize, catch and escape that
-        #2: once I have enough tweets, chop off the extra ones (currently adds a full page at a time)
-        recent.extend(api.search(q=term.phrase,lang=term.lang,page=i))
-        i += 1
-    '''    
-        
+    while i < 3:
+        recent.extend(api.search(q=term.phrase,lang=term.lang,rpp=term.pagesize,page=i))
+        i += 1  
+    '''
+    #print len(recent)    
     r = scoring.score(recent, SearchTerm_id)
     template = 'smj_app/results.html'
     return render_to_response( template , {'results': r.values(), 'term': term.phrase}, context_instance = RequestContext( request ))
@@ -157,6 +154,8 @@ def managetodo(request):
 def viewtodo(request):  
     todolist = Todo.objects.all()
     #should probably exclude completed/rejected tasks, or provide filter in view
+    #todolist = Todo.objects.filter(status='D')
+    
     template = 'smj_app/todolist.html'
     return render_to_response(template, {'todolist' : todolist}, context_instance = RequestContext( request ))
 

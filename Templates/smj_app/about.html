@@ -16,13 +16,66 @@
 {% include "smj_app/nav_header.html" %}
 
 	<div class="span-8">
-	</div>	
+		<h1>What</h1>
+		
+		<p>
+		This is an exploration of the question: "how can social search be more like regular search?"
+		</p>
+		<p>
+		To start, "Social Search" has many definitions.  
+		Some interpretations focus on understanding influence or sentiment.  
+		Other implementations focus on news and trends.  
+		Still others are trying to contort social search into a push marketing tool.
+		</p>
+		<p>
+		One particular challenge is how to combine related data from the spectrum of social data sources.  
+		Results based on text matches (hashtags and keywords) will miss related concepts (e.g. including results for cigarettes when you search for smoking).
+		Further, how can you rank ephemeral data?  Without the metrics like linkbacks and traffic, determining reputation and relevance becomes more difficult.
+		</p>
+		<p>
+		This is obviously not a solution to those problems.  
+		This is more about me, a person of middling technical ability, learning a few web development concepts and testing out a couple ideas.
+		Long term, one of the things that I would like to do is change the approach to be a bit more like recommendation engine.  
+		You would have several search terms under a single parent "idea".  From the results of those searches, you pick out the records that you like and penalize the ones that you don't.
+		Over time, the system would learn which words and phrases show up in the kind of results that you want.
+		Eventually it could make a reasonable guess as to whether or not new data fits with your concept or not.
+		  And that is absolutely as far as I think I would ever take this project.
+		
+		</p>
+		
+	</div>
 	
 	<div class="span-8">
-	</div>	
+		&nbsp;
+		
+	</div>		
 	
 	<div class="span-8 last">
+		<h1>How</h1>
+		<h3>this project</h3>
+		<p>
+		All I'm doing right now is searching Twitter using a <b>SearchTerm</b> and running through a list of related <b>keywords</b>.
+		Each keyword has a score (allowing for both positive and negative weights).  The score is applied whenever there is a hit.
+		The results are reranked and then given back to the user.
+		<br>
+		I'm currently using <a href="https://github.com/joshthecoder/tweepy">Tweepy</a> to get at Twitter.	
+		</p>
+		<h3>ideas</h3>
+		<p>
+		What makes "social" data different from a regular web page?
+		<li>Ephemeral</li>
+		<li>Language differences</li>
+		<li>Influence vs. Reputation</li>
+		<li>Less structure</li>	
+		<br>
+		To search this data as if you were doing a web search, I would imagine you need to use several approaches in tandem:
+		<li>Language processing -- you have to comprehend what is being said.  Tweets are not SEO; the authors aren't writing for clarity.</li>
+		<li>Data mining -- use related data to determine relevance.  Networks, locations, and other data points will help separate thought leaders from imitators</li>
+		<li>Machine learning -- the target data evolves quickly and prior data is not persistent.  A good tool will need to learn and adapt as conventions change.</li>
+		</p>
 	</div>	
+	
+
 	
 </div>  <!-- end container div -->
 
