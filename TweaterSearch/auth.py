@@ -13,3 +13,5 @@ def GetTweepyAPI():
     auth.set_access_token(key, secret)
     api = tweepy.API(auth)
     return api
+
+#does this work without the keys?
