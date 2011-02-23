@@ -1,0 +1,95 @@
+<html>
+
+<head>
+	<Title>Tweater Search</Title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+	{% include "TweaterSearch/includes.html" %}
+	
+</head>
+
+<div class="container">
+
+{% include "TweaterSearch/nav_header.html" %}
+
+	<div class="span-8">
+		<h3>About</h3>
+		<div id="about">
+			<p>TweaterSearch is a project to re-rank search results in order to achieve a more directed search.</p>  
+			<p>TweaterSearch (name subject to change) will use key phrases, social check-ins, geocodes, and other criteria to determine which tweets are more "interesting" than others.</p>
+			<P>This project was built by Samuel Jenning using, among other things, Django, the Tweepy API, Python registration, MySQL, and jQuery.  Sam doesn't want any criticism, so email praise only to sam jenning at gmail</P>
+		</div>
+	</div>
+	
+	<div class="span-8">
+		<div id="list">
+			<h3>Search Terms</h3>
+			<a href="/TweaterSearch/term/0" id="newterm"><img src="/site_media/Add-icon.png"/> &nbsp; Create a new term</a>
+			
+			<br><br>
+			<b>Available Search Terms:</b>
+			<br>
+		{% if latest_search_list %}
+		    
+		    {% for SearchTerm in latest_search_list %}
+		        <p>
+				<a class="fakelink"><img src="/site_media/Delete-icon.png" id="del-{{ SearchTerm.id }}"/></a>
+				<a href="/TweaterSearch/term/{{ SearchTerm.id }}/" name="edit-{{ SearchTerm.id }}"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
+				<a href="/TweaterSearch/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
+				</p>
+	<script>
+		$('#del-{{ SearchTerm.id }}').click(function() {
+		var r=confirm("Delete SearchTerm?");
+		if (r==true)
+		{
+        	var jqxhr = $.post("/TweaterSearch/delst/{{ SearchTerm.id }}/", 
+			function(data) { location.reload();   })
+  			.success(function() {   })
+  			.error(function() { alert("Could not delete"); })
+  			.complete(function() {  });			
+    	}
+		
+		});	
+		
+	</script>				
+				
+		    {% endfor %}
+		    
+		{% else %}
+		    <p>No searches are available.</p>
+		{% endif %}
+		</div>
+	</div>
+	
+	
+	<div class="span-8 last">
+		<h3>Instructions</h3>
+	</div>	
+</div>  <!-- end container div -->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#newterm").fancybox({
+			'width'				: '30%',
+			'height'			: '95%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+								  parent.location.reload(true); }
+		});
+		$('a[name^="edit"]').fancybox({
+			'width'				: '30%',
+			'height'			: '95%',
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+   								  parent.location.reload(true); }
+		});
+	});
+</script>
+
+</html>

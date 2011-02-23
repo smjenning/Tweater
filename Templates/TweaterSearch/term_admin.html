@@ -1,0 +1,135 @@
+{% block content %}
+
+<html lang="en">
+
+<head>
+	<title>Term Admin</Title>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+{% include "TweaterSearch/includes.html" %} 
+<!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+</head>
+
+<div class="container">
+	
+{% include "TweaterSearch/nav_header.html" %}
+
+	<div class="span-8">
+		
+	<div id="TwitterSearch">			
+			<form id='twsearch' action='' method=''> 
+				{% csrf_token %}
+				<input id="q" type="text" name="q"/>
+				<input id="searchSubmit" type="submit" value="Search"/>
+			</form>						
+		<div id="RawSearch">
+		</div>
+	</div>
+	
+	</div>
+	
+	<div class="span-8">
+		<div id="SearchResults">
+			
+			<div id="RefreshButton">
+				<input id="refreshTweater" type="submit" value="Refresh" vspace="5"/>
+			</div>
+			
+				<div id="results"></div>
+		</div>
+	</div>
+		
+	<div class="span-8 last">
+		<ul class="tabs">
+			
+			<li><a href="#SearchTerm" id="termtab">Term</a></li> 
+			<li><a href="#TermDetail" id="keywordtab">Keywords</a></li>
+		</ul>
+		<div class="tab_container">
+		<div class="tab_content">
+			<div id="TermDetail">
+			
+		</div>
+		</div>
+		</div>		
+	</div>
+	
+</div>  <!-- end container div -->
+
+<script>	
+	
+	$( document ).ready( function() 
+	{
+		
+		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
+		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 			
+ 
+		$( '#theform#' ).live('click', function() { 
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
+			//for keywords
+			$('#theform').ajaxForm(function() { 
+            alert("changes submitted"); 
+            $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+			});  
+		});
+		$( '#termform#' ).live('click', function() { 
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
+			//for the term
+			$('#termform').ajaxForm(function() { 
+           		alert("changes submitted"); 
+            	$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }} + "#SearchTerm");
+			});   
+		});
+			
+		$( '#twsearch' ).live('click', function() {	
+			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")	
+			//on submit, hide current results, ajax post the search form, then render results to rawsearch div
+			$('#twsearch').ajaxForm(function() {
+				$( '#RawSearch' ).hide();
+				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
+					$('#RawSearch').html(data);
+					$( '#RawSearch' ).show() 
+					});
+			});
+		});
+		
+		$( '#refreshTweater' ).click( function() {	
+			$( '#results' ).hide();
+			$( '#results' ).load("/TweaterSearch/search/" + {{ id }}, function(){
+				$('#results').show('slow');
+				});
+		});
+		
+		$(function() {
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor){
+						$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo.");
+					}
+				}
+			});	
+		});
+		
+		$("#termtab").click(function(){ 
+			$( '#TermDetail' ).hide();
+			$( '#TermDetail' ).load("/TweaterSearch/termform/" + {{ id }}, function(){
+				$( '#TermDetail' ).show('fast');
+				}); 
+		});
+			
+		$("#keywordtab").click(function(){ 
+			$( '#TermDetail' ).hide();
+			$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }}, function(){
+				$( '#TermDetail' ).show('fast');
+				}); 
+		});
+					
+	});
+	
+</script>
+
+</html>
+{% endblock %}
