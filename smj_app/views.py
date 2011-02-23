@@ -4,7 +4,7 @@ from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from TweaterSearch.models import *
+from smj_app.models import *
 from django.forms.models import modelformset_factory
 import scoring
 import auth
@@ -12,7 +12,7 @@ import auth
 
 def index(request):
     latest_search_list = SearchTerm.objects.all().order_by('phrase')
-    return render_to_response('TweaterSearch/index.html', {'latest_search_list': latest_search_list})
+    return render_to_response('smj_app/index.html', {'latest_search_list': latest_search_list})
 
 def search(request, SearchTerm_id):
     #need to tidy up variable names
@@ -33,7 +33,7 @@ def search(request, SearchTerm_id):
     '''    
         
     r = scoring.score(recent, SearchTerm_id)
-    template = 'TweaterSearch/results.html'
+    template = 'smj_app/results.html'
     return render_to_response( template , {'results': r.values(), 'term': term.phrase}, context_instance = RequestContext( request ))
 
 def rawsearch(request, SearchTerm_id):
@@ -44,16 +44,16 @@ def rawsearch(request, SearchTerm_id):
         term = SearchTerm.objects.get(id=SearchTerm_id)
         recent = api.search(q=term.phrase,lang=term.lang)       
     #leave at default number of results, or perhaps more vs. page limit for variety  
-    template = 'TweaterSearch/results.html'
+    template = 'smj_app/results.html'
     return render_to_response( template , {'results': recent }, context_instance = RequestContext( request ))       
 
 def termadmin(request, SearchTerm_id):
-    template = 'TweaterSearch/term_admin.html'
+    template = 'smj_app/term_admin.html'
     data = {'id' : SearchTerm_id }
     return render_to_response( template , data, context_instance = RequestContext( request ))
 
 def termform(request, SearchTerm_id):
-    template = 'TweaterSearch/termform.html'  
+    template = 'smj_app/termform.html'  
     if request.method == 'POST':
         if SearchTerm_id == '0':
             f = SearchTermFormAll(request.POST)
@@ -73,7 +73,7 @@ def termform(request, SearchTerm_id):
 
 def edit(request, SearchTerm_id):
     #render current list of keywords/weights
-    template = 'TweaterSearch/termdetail.html'
+    template = 'smj_app/termdetail.html'
     return render_to_response( template , {'SearchTermID': SearchTerm_id}, context_instance = RequestContext( request ))
 
 def keywordformsetfactory(request, SearchTerm_id):  
@@ -90,18 +90,18 @@ def keywordformsetfactory(request, SearchTerm_id):
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
-    template = 'TweaterSearch/keywordform.html'
+    template = 'smj_app/keywordform.html'
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
 
 def neworedit(request, SearchTerm_id):     
     if SearchTerm_id == '0':
         t = SearchTerm
         f = SearchTermFormAll()
-        template = 'TweaterSearch/termform.html'
+        template = 'smj_app/termform.html'
         data = { 'form': f, 'id' : 0 }
     else:
         t = SearchTerm.objects.get(pk=SearchTerm_id)   
-        template = 'TweaterSearch/termform.html'
+        template = 'smj_app/termform.html'
         #if the request is not a post, i.e. you are just retrieving the existing list
         f = SearchTermFormAll(instance=t)
         data = { 'form': f, 'id' : SearchTerm_id }
@@ -115,7 +115,7 @@ def delkw(request, kid, SearchTerm_id):
     else:
         #print "SearchTerm must have at least one Keyword"
         raise Exception("SearchTerm must have at least one Keyword")
-    template = 'TweaterSearch/keywordform.html'
+    template = 'smj_app/keywordform.html'
     KeywordFormset = modelformset_factory(Keyword, can_delete=1, extra=0, max_num = None)
     formset = KeywordFormset(queryset = Keyword.objects.filter(SearchTermID=SearchTerm_id))
     return render_to_response(template, {'formset' : formset, 'SearchTermID' : SearchTerm_id}, context_instance = RequestContext( request ))
@@ -124,7 +124,7 @@ def delst(request, SearchTerm_id):
     term = get_object_or_404(SearchTerm, id=SearchTerm_id)
     term.delete()
     latest_search_list = SearchTerm.objects.all().order_by('phrase')
-    return render_to_response('TweaterSearch/index.html', {'latest_search_list': latest_search_list})
+    return render_to_response('smj_app/index.html', {'latest_search_list': latest_search_list})
 
 def addtodo(request):
     if request.method == 'POST':
@@ -133,7 +133,7 @@ def addtodo(request):
             f.save()
     else:
             f = TodoFormAdd()
-    template = 'TweaterSearch/addtodo.html'  
+    template = 'smj_app/addtodo.html'  
     data = { 'form': f, 'id' : 0 }
     return render_to_response( template , data, context_instance = RequestContext( request ))
 
@@ -151,19 +151,19 @@ def managetodo(request):
     else:
         #if the request is not a post, i.e. you are just retrieving the existing list
         formset = TodoFormset()
-    template = 'TweaterSearch/todo.html'
+    template = 'smj_app/todo.html'
     return render_to_response(template, {'formset' : formset}, context_instance = RequestContext( request ))
 
 def viewtodo(request):  
     todolist = Todo.objects.all()
     #should probably exclude completed/rejected tasks, or provide filter in view
-    template = 'TweaterSearch/todolist.html'
+    template = 'smj_app/todolist.html'
     return render_to_response(template, {'todolist' : todolist}, context_instance = RequestContext( request ))
 
 def about(request):
-    template = 'TweaterSearch/about.html'
+    template = 'smj_app/about.html'
     return render_to_response(template, context_instance = RequestContext( request ))
 
 def contact(request):
-    template = 'TweaterSearch/contact.html'
+    template = 'smj_app/contact.html'
     return render_to_response(template, context_instance = RequestContext( request ))

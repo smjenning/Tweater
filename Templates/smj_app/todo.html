@@ -1,11 +1,11 @@
 {% block content %}
 <head>
-	{% include "TweaterSearch/includes.html" %}
+	{% include "smj_app/includes.html" %}
 
     <script language="JavaScript">
 
     function subs(){
-	  $.post("/TweaterSearch/managetodo/", $("#todoformset").serialize(), function(){ window.parent.$.fancybox.close(); });	
+	  $.post("/smj_app/managetodo/", $("#todoformset").serialize(), function(){ window.parent.$.fancybox.close(); });	
     }
 
     </script>

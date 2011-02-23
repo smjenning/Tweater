@@ -3,7 +3,7 @@ Created on Jan 26, 2011
 
 @author: Fury
 '''
-from TweaterSearch.models import SearchTerm, Keyword
+from smj_app.models import SearchTerm, Keyword
 from django.contrib import admin
 
 class SearchTermAdmin(admin.ModelAdmin):

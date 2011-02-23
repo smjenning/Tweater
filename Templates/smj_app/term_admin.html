@@ -6,14 +6,14 @@
 	<title>Term Admin</Title>	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	
-{% include "TweaterSearch/includes.html" %} 
+{% include "smj_app/includes.html" %} 
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 
 </head>
 
 <div class="container">
 	
-{% include "TweaterSearch/nav_header.html" %}
+{% include "smj_app/nav_header.html" %}
 
 	<div class="span-8">
 		
@@ -62,16 +62,16 @@
 	$( document ).ready( function() 
 	{
 		
-		$( '#results' ).load("/TweaterSearch/search/" + {{ id }});
-		$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
-		$( '#RawSearch' ).load("/TweaterSearch/rawsearch/" + {{ id }});	 			
+		$( '#results' ).load("/smj_app/search/" + {{ id }});
+		$( '#TermDetail' ).load("/smj_app/edit/" + {{ id }});
+		$( '#RawSearch' ).load("/smj_app/rawsearch/" + {{ id }});	 			
  
 		$( '#theform#' ).live('click', function() { 
 			$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43")		
 			//for keywords
 			$('#theform').ajaxForm(function() { 
             alert("changes submitted"); 
-            $( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }});
+            $( '#TermDetail' ).load("/smj_app/edit/" + {{ id }});
 			});  
 		});
 		$( '#termform#' ).live('click', function() { 
@@ -79,7 +79,7 @@
 			//for the term
 			$('#termform').ajaxForm(function() { 
            		alert("changes submitted"); 
-            	$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }} + "#SearchTerm");
+            	$( '#TermDetail' ).load("/smj_app/edit/" + {{ id }} + "#SearchTerm");
 			});   
 		});
 			
@@ -88,7 +88,7 @@
 			//on submit, hide current results, ajax post the search form, then render results to rawsearch div
 			$('#twsearch').ajaxForm(function() {
 				$( '#RawSearch' ).hide();
-				$.post("/TweaterSearch/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
+				$.post("/smj_app/rawsearch/0/", $("#twsearch").serialize(), function(data) { 
 					$('#RawSearch').html(data);
 					$( '#RawSearch' ).show() 
 					});
@@ -97,7 +97,7 @@
 		
 		$( '#refreshTweater' ).click( function() {	
 			$( '#results' ).hide();
-			$( '#results' ).load("/TweaterSearch/search/" + {{ id }}, function(){
+			$( '#results' ).load("/smj_app/search/" + {{ id }}, function(){
 				$('#results').show('slow');
 				});
 		});
@@ -115,14 +115,14 @@
 		
 		$("#termtab").click(function(){ 
 			$( '#TermDetail' ).hide();
-			$( '#TermDetail' ).load("/TweaterSearch/termform/" + {{ id }}, function(){
+			$( '#TermDetail' ).load("/smj_app/termform/" + {{ id }}, function(){
 				$( '#TermDetail' ).show('fast');
 				}); 
 		});
 			
 		$("#keywordtab").click(function(){ 
 			$( '#TermDetail' ).hide();
-			$( '#TermDetail' ).load("/TweaterSearch/edit/" + {{ id }}, function(){
+			$( '#TermDetail' ).load("/smj_app/edit/" + {{ id }}, function(){
 				$( '#TermDetail' ).show('fast');
 				}); 
 		});

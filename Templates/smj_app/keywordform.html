@@ -6,7 +6,7 @@
 		<input type="image" src="/site_media/Add-icon.png" value="Add More" id="add_more"><a>Add New</a>	
 	</div>
 	<br>
-	<form id='theform' action='/TweaterSearch/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
+	<form id='theform' action='/smj_app/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
 	<input type='submit' value='submit changes' id='submit'/>	
 	
@@ -25,7 +25,7 @@
 		var r=confirm("Delete keyword?");
 		if (r==true)
 		{
-        	var jqxhr = $.get("/TweaterSearch/delkw/{{ SearchTermID }}/{{ form.id.value }}", 
+        	var jqxhr = $.get("/smj_app/delkw/{{ SearchTermID }}/{{ form.id.value }}", 
 			function() {    })
   			.success(function() {  })
   			.error(function() { alert("Could not delete. SearchTerm must have at least one keyword"); })
