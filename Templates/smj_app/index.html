@@ -14,18 +14,18 @@
 	<div class="span-8">
 		<h3>About</h3>
 		<div id="about">
-			<p>smj_app is a project to re-rank search results in order to achieve a more directed search.</p>  
-			<p>smj_app (name subject to change) will use key phrases, social check-ins, geocodes, and other criteria to determine which tweets are more "interesting" than others.</p>
-			<P>This project was built by Samuel Jenning using, among other things, Django, the Tweepy API, Python registration, MySQL, and jQuery.  Sam doesn't want any criticism, so email praise only to sam jenning at gmail</P>
+			<p>Tweater is a project to re-rank search results in order to achieve a more directed search.</p>  
+			<p>Tweater (name subject to change) will use key phrases, social check-ins, geocodes, and other criteria to determine which tweets are more "interesting" than others.</p>
+			<P>This project was built by Samuel Jenning using, among other things, Django, the Tweepy API, Python registration, MySQL, jQuery, and various plugins: fancybox, listnav, and jquery forms.  Sam doesn't want any criticism; you may email praise only to sam jenning at gmail.</P>
 		</div>
 	</div>
 	
 	<div class="span-8">
 		<h3>Search Terms</h3>
-		<a href="/smj_app/term/0" id="newterm"><img src="/site_media/Add-icon.png"/> &nbsp; Create a new term</a>
-		<br>
-		<b>Available Search Terms:</b>
-		
+		<p><h3><a href="/smj_app/term/0" id="newterm"><img src="/site_media/Add-icon.png"/> Create a new term</a>
+		<br></h3>
+		</p>
+		<b>Browse Search Terms:</b>	
 		<br>
 		<div id="list-nav"></div>
 		<div id="list">													
@@ -33,27 +33,11 @@
 		{% if latest_search_list %}
 		    
 		    {% for SearchTerm in latest_search_list %}
-		      <div class="termitem">
-			    <p>
-				<a class="fakelink"><img src="/site_media/Delete-icon.png" id="del-{{ SearchTerm.id }}"/></a>
+		     <div class="termitem {% cycle even,odd as rowcolors %}">			    
+				
 				<a href="/smj_app/term/{{ SearchTerm.id }}/" name="edit-{{ SearchTerm.id }}"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
 				<a href="/smj_app/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
-				</p>
-				<script>
-					$('#del-{{ SearchTerm.id }}').click(function() {
-					var r=confirm("Delete SearchTerm?");
-					if (r==true)
-					{
-			        	var jqxhr = $.post("/smj_app/delst/{{ SearchTerm.id }}/", 
-						function(data) { location.reload();   })
-			  			.success(function() {   })
-			  			.error(function() { alert("Could not delete"); })
-			  			.complete(function() {  });			
-			    	}
-					
-					});	
-					
-				</script>				
+				<a class="fakelink"><img src="/site_media/Delete-icon.png" id="del-{{ SearchTerm.id }}" align="right"/></a>								
 			</div>	
 		    {% endfor %}
 		    
@@ -98,13 +82,28 @@
 		});
 	
 		$('#list').listnav({
-		includeAll: false,
+		includeAll: true,
 		showCounts: false,
 		prefixes: ['the','a']
 		});
 	});
 	
-	
+	{% if latest_search_list %}
+		   {% for SearchTerm in latest_search_list %}
+					$('#del-{{ SearchTerm.id }}').click(function() {
+					var r=confirm("Delete SearchTerm?");
+					if (r==true)
+					{
+			        	var jqxhr = $.post("/smj_app/delst/{{ SearchTerm.id }}/", 
+						function(data) { location.reload();   })
+			  			.success(function() {   })
+			  			.error(function() { alert("Could not delete"); })
+			  			.complete(function() {  });			
+			    	}
+					
+					});	
+			{% endfor %}
+	{% endif %}
 </script>
 
 </html>
