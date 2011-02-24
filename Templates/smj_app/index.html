@@ -4,7 +4,7 @@
 	<Title>Tweater Search</Title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
 	{% include "smj_app/includes.html" %}
-	
+	<script type="text/javascript" src="/site_media/jquery.listnav-2.1.js"></script>
 </head>
 
 <div class="container">
@@ -21,37 +21,40 @@
 	</div>
 	
 	<div class="span-8">
-		<div id="list">
-			<h3>Search Terms</h3>
-			<a href="/smj_app/term/0" id="newterm"><img src="/site_media/Add-icon.png"/> &nbsp; Create a new term</a>
-			
-			<br><br>
-			<b>Available Search Terms:</b>
-			<br>
+		<h3>Search Terms</h3>
+		<a href="/smj_app/term/0" id="newterm"><img src="/site_media/Add-icon.png"/> &nbsp; Create a new term</a>
+		<br>
+		<b>Available Search Terms:</b>
+		
+		<br>
+		<div id="list-nav"></div>
+		<div id="list">													
+
 		{% if latest_search_list %}
 		    
 		    {% for SearchTerm in latest_search_list %}
-		        <p>
+		      <div class="termitem">
+			    <p>
 				<a class="fakelink"><img src="/site_media/Delete-icon.png" id="del-{{ SearchTerm.id }}"/></a>
 				<a href="/smj_app/term/{{ SearchTerm.id }}/" name="edit-{{ SearchTerm.id }}"><img src="/site_media/Edit-icon.png"/></a> &nbsp;
 				<a href="/smj_app/admin/{{ SearchTerm.id }}/">{{ SearchTerm.phrase }}</a>
 				</p>
-	<script>
-		$('#del-{{ SearchTerm.id }}').click(function() {
-		var r=confirm("Delete SearchTerm?");
-		if (r==true)
-		{
-        	var jqxhr = $.post("/smj_app/delst/{{ SearchTerm.id }}/", 
-			function(data) { location.reload();   })
-  			.success(function() {   })
-  			.error(function() { alert("Could not delete"); })
-  			.complete(function() {  });			
-    	}
-		
-		});	
-		
-	</script>				
-				
+				<script>
+					$('#del-{{ SearchTerm.id }}').click(function() {
+					var r=confirm("Delete SearchTerm?");
+					if (r==true)
+					{
+			        	var jqxhr = $.post("/smj_app/delst/{{ SearchTerm.id }}/", 
+						function(data) { location.reload();   })
+			  			.success(function() {   })
+			  			.error(function() { alert("Could not delete"); })
+			  			.complete(function() {  });			
+			    	}
+					
+					});	
+					
+				</script>				
+			</div>	
 		    {% endfor %}
 		    
 		{% else %}
@@ -93,7 +96,15 @@
 			'onClosed'			: function() {
    								  parent.location.reload(true); }
 		});
+	
+		$('#list').listnav({
+		includeAll: false,
+		showCounts: false,
+		prefixes: ['the','a']
+		});
 	});
+	
+	
 </script>
 
 </html>
