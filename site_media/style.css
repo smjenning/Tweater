@@ -47,6 +47,12 @@
 			vertical-align: middle; 		
 		}
 		
+		#RefreshButton {
+			padding: 4px;
+			height: 24px;
+			vertical-align: middle; 		
+		}
+		
 		.termitem {
 			background: #FFE773;
 			border:1px solid silver;
@@ -91,10 +97,12 @@
 		ul.tabs li a:hover {
 			background: #ccc;
 		}
+					
 		html .tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
 			background: #fff;
 			border-bottom: 1px solid #fff; /*--Makes the active tab look like it's connected with its content--*/
-		}		
+		}
+		
 		.tab_container {
 			border: 1px solid #999;
 			border-top: none;
@@ -108,15 +116,15 @@
 			font-size: 1.2em;
 		}
 		
-		#add_more {
-			padding: 5px;
+		
+		#add_more {			
 			background-color: #FFB673;
 			z-index: 88;
-			-moz-border-radius: 10px;
-			border-radius: 10px;
-			vertical-align: middle;
-			width: auto;
+			vertical-align: baseline;
+			
+			
 			}
+		#add_more:hover { background-color:#f3f3f3;}
 		/*-- listnav --*/
 		/* default styling example */
 
