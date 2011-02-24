@@ -121,11 +121,15 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'TweaterSearch',
+    'smj_app',
     'registration'
 )
+#for django registration
+ACCOUNT_ACTIVATION_DAYS = 7 
+EMAIL_HOST = 'localhost'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+LOGIN_REDIRECT_URL = '/smj_app/'
 
-ACCOUNT_ACTIVATION_DAYS = 7 #for django registration
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
