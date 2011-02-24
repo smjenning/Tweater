@@ -1,12 +1,16 @@
-{% extends "new_base.html" %}
-{% load facebook_tags %}
-{% facebook_js %}
+-- extends "new_base.html" --
+-- load facebook_tags --
+-- facebook_js --
+
+{% include "smj_app/includes.html" %}
+<br>
+
 
 {% block title_extra %} :: Sign In{% endblock %}
 
 
 {% block head_extra %}
-<script type="text/javascript" src="/site_media/javascript/signin.js"></script>
+<script type="text/javascript" src="/site_media/signin.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +21,7 @@
       <div id="signIn">
         <div class="signInOption">
           <p>Sign in now with your Facebook account...</p>
-          {% facebook_button %}
+          - facebook_button -
           <br/>
         </div>
 
