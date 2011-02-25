@@ -1,72 +1,53 @@
 <!-- borrwed, with love, from Ian W. -->
 
-{% block title_extra %} :: Sign Up{% endblock %}
-
 {% block head_extra %}
+{% include "smj_app/includes.html" %}
 
-<script type="text/javascript" src="/site_media/javascript/signin.js"></script>
+<script type="text/javascript" src="/site_media/signin.js"></script>
 
 {% endblock %}
 
 {% block content %}
 <div id="content">
-  <div class="container">
+  
 
-    <div class="span-12 prepend-2 prepend-top">
+
       <div id="regOptionBox">
-
-        <div class="regOption" id="facebookReg">
-          <h3>Sign up with your Facebook account...</h2>
-          -facebook button-
-          <br/>
-        </div>
-
-        <hr>
-
-        <div class="regOption" id="topoutReg">
+        <div class="regOption" id="signupform">
           <br/>
           <h3>Create an account</h3>
-          <form accept-charset="UTF-8" id="login-form" method="post" autocomplete="off" action=".">
+		  
+          <form accept-charset="UTF-8" class="login" id="login-form" method="post" autocomplete="off" action=".">
           {% csrf_token %}
-
-            <div class="input-wrapper">
+		  	<div class="input-wrapper">	         
               <label for="username">Username</label>
-              <input id="username" size="30" type="text" name="username">
-            </div>
-
+              <input id="username" size="30" type="text" name="username">		
+			</div>
             <div class="input-wrapper">
               <label for="email">Email Address</label>
               <input id="email" size="30" type="text" name="email">
             </div>
-
+		
+		
             <div class="input-wrapper">
               <label for="password1">Password</label>
               <input id="password1" size="30" type="password" name="password1">
             </div>
-
+		
+		
             <div class="input-wrapper">
               <label for="password2">Confirm Password</label>
               <input id="password2" size="30" type="password" name="password2">
             </div>
-
+		
             <button type="submit" value="submit"/>Create Account</button>
             <div class="clear"></div>
           </form>
+		  
         </div>
       </div>
-    </div>
 
-    <div class="span-8 append-2 prepend-top last">
-      <div id="reasons">
-        <h3>Why Register?</h3>
-        <ul>
-          <li>etc.</li>
-          <li>etc.</li>
-          <li>etc.</li>
-        </ul>
-      </div>
-    </div>
 
-  </div>
+ 
 </div>
 {% endblock %}

@@ -61,7 +61,63 @@
 		}
 		.odd { background: #f0f0a0;	} 
 		.termitem:hover { background-color:#f3f3f3;}
-			
+		
+		/* from http://blog.stannard.net.au/2011/01/07/creating-a-form-with-labels-inside-text-fields-using-jquery/ */
+		#regOptionBox {
+			background-color:#eee;
+			width:300px;
+			padding:10px 20px;
+			border:5px solid #ddd;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}		
+
+		form.login,
+		form.login input,
+		form.login button {
+			font-family: Helvetica, Arial;
+			font-size:14px;
+		}
+		/* Make our title a bit bigger */
+		form.login div.title {
+			font-size:24px;
+			font-weight:bold;
+			margin-bottom:10px;
+		}
+		 
+		/* Remove the bullets and padding from our list */
+		form.login ul {
+			list-style-type:none;
+			padding:0;
+			margin:0;
+		}
+		 
+		/* Give our input fields a fixed width and a bit of padding */
+		form.login input {
+			width:280px;
+			padding:5px;
+			margin-bottom:10px;
+			border-radius: 5px;
+		}
+		/* Make each field container relative.
+		This lets us position the label absolutely inside it. */
+		form.login ul li {
+			position:relative;
+		}
+		 
+		/* Position the labels inside our input fields. */				
+		form.login label {
+			color: #888;
+			font-size: 1.1em;
+			font-weight: lighter;
+			line-height: 54px;
+			margin: -5px 0px 0px 11px;
+			position: absolute;
+			z-index: 1;
+		}
+
+
+		/* -- jquery tabs --*/			
 		ul.tabs {
 			margin: 0;
 			padding: 0;
@@ -116,15 +172,15 @@
 			font-size: 1.2em;
 		}
 		
-		
+		/* -- styling for dynamic jquery forms  --*/
 		#add_more {			
 			background-color: #FFB673;
 			z-index: 88;
 			vertical-align: baseline;
-			
-			
+					
 			}
 		#add_more:hover { background-color:#f3f3f3;}
+		
 		/*-- listnav --*/
 		/* default styling example */
 

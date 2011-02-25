@@ -1,24 +1,13 @@
--- extends "new_base.html" --
--- load facebook_tags --
--- facebook_js --
-
 {% include "smj_app/includes.html" %}
-<br>
-
-
-{% block title_extra %} :: Sign In{% endblock %}
-
 
 {% block head_extra %}
 <script type="text/javascript" src="/site_media/signin.js"></script>
 {% endblock %}
 
 {% block content %}
-<div id="content">
-  <div class="container">
-    
-    <div class="span-12 prepend-6 append-6 prepend-top">
-      <div id="signIn">
+
+      <div id="regOptionBox">
+      	<!--
         <div class="signInOption">
           <p>Sign in now with your Facebook account...</p>
           - facebook_button -
@@ -26,37 +15,39 @@
         </div>
 
         <hr>
-
+-->
         <div class="signInOption">
-          <p>Or sign in with your username and password...</p>
+          <br/>
+		  <h3>Log In</h3>
 
-          <form accept-charset="UTF-8" method="post" autocomplete="off" id="login-form" action="/accounts/login/">
+          <form accept-charset="UTF-8"  method="" autocomplete="off" id="login-form" class="login" action="">
           {% csrf_token %}
-            <div class="input-wrapper">
-              <label for="id_username">Username</label>
-              <input id="id_username" size="30" type="text" name="username">
-            </div>
-          
-            <div class="input-wrapper">
-              <span>
-                <label for="id_password">Password</label>
-                <div class="clear"></div>
-              </span>
-              <input id="id_password" size="30" type="password" name="password">
-            </div>
-
-            <button type="submit" value="submit">Sign In</button>
+		 	<div class="input-wrapper">	 
+            	<label for="id_username">Username</label>
+            	<input id="id_username" size="30" type="text" name="username">                          
+          	</div>
+			<div class="input-wrapper">	   
+				<label for="id_password">Password</label>
+            	<input id="id_password" size="30" type="password" name="password">
+			</div>
+		   <br>
+			<input type='button' style="-moz-border-radius:5px; border-radius:5px; background-color:#99f; width:100px;" value="Log In" onclick="subs()"/>
             <div class="clear"></div>
           </form>
-
           <div class="prepend-top" id="forgotPassword">
-            <p>Forgot your password? <a href="{% url auth_password_reset %}">Reset it</a>!</p>
-            <p>Not a member? <a href="{% url registration_register %}">Sign up</a>!</p>
+            <h5>Forgot your password? <a href="{% url auth_password_reset %}">Reset it</a>!</h5>
+            <h5>Not a member? <a href="{% url registration_register %}">Sign up</a>!</h5>
           </div>
 
         </div>
-      </div>
-    </div>
-  </div>
+
+ 
 </div>
+    <script language="JavaScript">
+
+	function subs(){
+		  $.post("/accounts/login/", $("#login-form").serialize(), function(){ window.parent.$.fancybox.close(); });	
+    }
+    </script>
+
 {% endblock %}

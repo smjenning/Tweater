@@ -5,7 +5,10 @@
 			<a href="/smj_app/about/">about</a> ||		
 			<a href="/smj_app/contact/">contact</a> ||
 			<a href="/smj_app/viewtodo/"  name="todolist">to do</a> ||
-			<a href="/smj_app/addtodo/" id="todoform" name="todoform">add todo</a>
+			<a href="/smj_app/addtodo/" id="todoform" name="todoform">add todo</a> ||
+			{% if user.username %} logged in as {{ user.username }} | <a class="fakelink" id="logoutform" name="logoutform">log out</a> 
+			{% else %} not logged in | <a href="/accounts/login/" name="loginform">log in</a> | <a id="regform" name="regform" href="/accounts/register/">register</a>
+			{% endif %}
 		</div>
 		<br>
 	</div>
@@ -14,12 +17,11 @@
 	
 	$( document ).ready( function() 
 	{
-		
-		
+				
 		//fancybox links
 		$('a[name="todoform"]').fancybox({
-			'width'				: '35%',
-			'height'			: '25%',
+			'width'				: 400,
+			'height'			: 170,
 			'autoScale'			: true,
 			'transitionIn'		: 'elastic',
 			'transitionOut'		: 'none',
@@ -27,12 +29,41 @@
 		});
 			
 		$('a[name="todolist"]').fancybox({
-			'width'				: '90%',
-			'height'			: '90%',
+			'width'				: 900,
+			'height'			: 800,
 			'autoScale'			: true,
 			'transitionIn'		: 'elastic',
 			'transitionOut'		: 'none',
 			'type'				: 'iframe'
+		});
+		
+		$('a[name="loginform"]').fancybox({
+			'width'				: 350,
+			'height'			: 315,
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+								  parent.location.reload(true); }
+		});
+		
+		$('a[name="regform"]').fancybox({
+			'width'				: 355,
+			'height'			: 290,
+			'autoScale'			: true,
+			'transitionIn'		: 'elastic',
+			'transitionOut'		: 'none',
+			'type'				: 'iframe',
+			'onClosed'			: function() {
+								  parent.location.reload(true); }
+		});
+		
+		$( '#logoutform').click( function(){
+			var r=confirm("Logout?");
+			if (r==true){
+			$.get('/accounts/logout', function(data){ location.reload(true);});
+			}
 		});
 			
 	});

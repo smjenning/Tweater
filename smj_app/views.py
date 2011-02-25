@@ -10,9 +10,9 @@ import scoring
 import auth
 
 
-def index(request):
+def index(request):   
     latest_search_list = SearchTerm.objects.all().order_by('phrase')
-    return render_to_response('smj_app/index.html', {'latest_search_list': latest_search_list})
+    return render_to_response('smj_app/index.html', {'latest_search_list': latest_search_list, 'user': request.user})
 
 def search(request, SearchTerm_id):
     #need to tidy up variable names
