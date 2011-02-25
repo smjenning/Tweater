@@ -126,6 +126,8 @@
 			height: 32px; /*--Set height of tabs--*/
 			border-bottom: 1px solid #999;
 			border-left: 1px solid #999;
+			border-top-left-radius: 10px;
+			-moz-border-radius-topleft: 10px;
 			width: 100%;
 		}
 		ul.tabs li {
@@ -139,8 +141,13 @@
 			margin-bottom: -1px; /*--Pull the list item down 1px--*/
 			overflow: hidden;
 			position: relative;
-			background: #e0e0e0;
+			background: #ddd;
+			border-top-right-radius: 10px;
+			border-top-left-radius: 10px;
+			-moz-border-radius-topleft: 10px;
+			-moz-border-radius-topright: 10px;
 		}
+		
 		ul.tabs li a {
 			text-decoration: none;
 			color: #000;
@@ -149,7 +156,12 @@
 			padding: 0 20px;
 			border: 1px solid #fff; /*--Gives the bevel look with a 1px white border inside the list item--*/
 			outline: none;
+			border-top-right-radius: 10px;
+			border-top-left-radius: 10px;
+			-moz-border-radius-topleft: 10px;
+			-moz-border-radius-topright: 10px;
 		}
+		
 		ul.tabs li a:hover {
 			background: #ccc;
 		}
@@ -157,6 +169,7 @@
 		html .tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
 			background: #fff;
 			border-bottom: 1px solid #fff; /*--Makes the active tab look like it's connected with its content--*/
+
 		}
 		
 		.tab_container {
@@ -166,6 +179,10 @@
 			clear: both;
 			float: left; width: 100%;
 			background: #fff;
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+			-moz-border-radius-bottomleft: 10px;
+			-moz-border-radius-bottomright: 10px;
 		}
 		.tab_content {
 			padding: 5px;
@@ -174,10 +191,10 @@
 		
 		/* -- styling for dynamic jquery forms  --*/
 		#add_more {			
-			background-color: #FFB673;
+			width: 125px;
 			z-index: 88;
 			vertical-align: baseline;
-					
+			border: 1px solid #999;		
 			}
 		#add_more:hover { background-color:#f3f3f3;}
 		

@@ -5,7 +5,7 @@
 	<input type="button" style="background-repeat:no-repeat; width:25; height:25;  background-image: url(/site_media/Add-icon.png); background-color:#ddd; background-position-x:center; background-position-y:center;"/>
 	<a class="fakelink">Add keyword</a>
 	</div>
-	<form id='theform' action='/smj_app/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
+	<form id='kwform' action='/smj_app/keywords/{{ SearchTermID }}/' method='post'> {% csrf_token %}
 	{{ formset.management_form }}
 	<input type='submit' value='submit changes' id='submit'/>	
 	<br>
@@ -19,6 +19,7 @@
 			{{ form.DELETE.as_hidden }}
 			<a class="fakelink"><img src="/site_media/Delete-icon.png" width="12" id="del-{{ form.id.value }}"/></a>
 	</div>
+
 	<script>
 		$('#del-{{ form.id.value }}').click(function() {
 		var r=confirm("Delete keyword?");
@@ -34,7 +35,7 @@
 		});	
 		
 	</script>
-	
+
 	{% endfor %}
 	</form>
 	
@@ -43,7 +44,7 @@
         cloneMore('div.table:last', 'form');
     });
 	
-	$('#submit#').click(function() { 
+	$('#submit').click(function() { 
 		$.getScript("https://github.com/malsup/form/raw/master/jquery.form.js?v2.43");				
         //alert("changes submitted");          
 		//do more here		 
